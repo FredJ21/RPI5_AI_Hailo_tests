@@ -2,4 +2,5 @@
 Test du module AI sur Raspberry PI 5
 
 oki
+oki
 
