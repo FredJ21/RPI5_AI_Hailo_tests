@@ -48,7 +48,9 @@ bash prendre_une_photo.sh
 ```
 Yolo_Label/YoloLabel
 ```
---> sources : https://github.com/developer0hye/Yolo_Label
+- sources : https://github.com/developer0hye/Yolo_Label
+- Directory : ```Dataset/Fred_Dataset/images_HD/```
+- LabelList file : ```Dataset/Fred_Dataset/Fred_Dataset_Labels.txt```
 
 
 
