@@ -1,0 +1,12 @@
+carre rouge
+carre vert
+carre bleu
+carre jaune
+rond rouge
+rond vert
+rond bleu
+rond jaune
+triangle rouge
+triangle vert
+triangle bleu
+triangle jaune
