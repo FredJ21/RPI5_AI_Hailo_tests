@@ -40,7 +40,7 @@ ne pas oublier d'activer l'environnement virtuel python : ```source venv/bin/act
 ```
 python read_dataset.py
 ```
-#### capture une nouvelle image et la sauvegarde dans ```../Dataset/Fred_Dataset/images_HD/```
+#### capture une nouvelle image et sauvegarde dans ```../Dataset/Fred_Dataset/images_HD/```
 ```
 bash prendre_une_photo.sh
 ```
@@ -52,7 +52,12 @@ Yolo_Label/YoloLabel
 - Directory : ```Dataset/Fred_Dataset/images_HD/```
 - LabelList file : ```Dataset/Fred_Dataset/Fred_Dataset_Labels.txt```
 
-
+#### création des images dérivées 
+- au format 640x640
+- avec du bruit ( points blancs et noirs )
+- 10 itérations par photo
+- Source Directory : ```Dataset/Fred_Dataset/images_HD/```
+- Destination Directory : ```Dataset/Fred_Dataset/images/```
 
 
 
