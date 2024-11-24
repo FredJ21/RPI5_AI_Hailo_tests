@@ -44,7 +44,7 @@ python read_dataset.py
 ```
 bash prendre_une_photo.sh
 ```
-#### Labelisation des images 
+#### Labelisation des images au format Yolov8
 ```
 Yolo_Label/YoloLabel
 ```
