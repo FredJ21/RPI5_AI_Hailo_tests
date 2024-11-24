@@ -53,6 +53,9 @@ Yolo_Label/YoloLabel
 - LabelList file : ```Dataset/Fred_Dataset/Fred_Dataset_Labels.txt```
 
 #### création des images dérivées 
+```
+python dataset_HD_to_640x640.py
+```
 - au format 640x640
 - avec du bruit ( points blancs et noirs )
 - 10 itérations par photo
