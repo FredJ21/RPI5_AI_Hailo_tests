@@ -36,11 +36,16 @@ dans : ```RPI5_AI_Hailo_tests/bin```
 
 ne pas oublier d'activer l'environnement virtuel python : ```source venv/bin/activate```
 
-### test de lecture d'un dataset 
---> permet de vérifier le chargement des images et l'interprétation du fichier label 
+#### Les scripts et programmes de traitement
 ```
 python read_dataset.py
 ```
+--> permet de vérifier le chargement des images et l'interprétation du fichier label 
+```
+bash prendre_une_photo.sh
+```
+--> capture une nouvelle image et la sauvegarde dans ```../Dataset/Fred_Dataset/images_HD/```
+
 
 
 
