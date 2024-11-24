@@ -36,15 +36,19 @@ dans : ```RPI5_AI_Hailo_tests/bin```
 
 ne pas oublier d'activer l'environnement virtuel python : ```source venv/bin/activate```
 
-#### Les scripts et programmes de traitement
+#### vérification du chargement des images et de l'interprétation du fichier label 
 ```
 python read_dataset.py
 ```
---> permet de vérifier le chargement des images et l'interprétation du fichier label 
+#### capture une nouvelle image et la sauvegarde dans ```../Dataset/Fred_Dataset/images_HD/```
 ```
 bash prendre_une_photo.sh
 ```
---> capture une nouvelle image et la sauvegarde dans ```../Dataset/Fred_Dataset/images_HD/```
+#### Labelisation des images 
+```
+Yolo_Label/YoloLabel
+```
+--> sources : https://github.com/developer0hye/Yolo_Label
 
 
 
