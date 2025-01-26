@@ -1,0 +1,35 @@
+2025-01-26 10:06:23,262 - INFO - __init__.py:84 - First time Hailo Dataflow Compiler is being used. Checking system requirements... (this might take a few seconds)
+2025-01-26 10:06:31,980 - INFO - parser.py:162 - Translation started on ONNX model yolov8s
+2025-01-26 10:06:32,226 - INFO - parser.py:197 - Restored ONNX model yolov8s (completion time: 00:00:00.25)
+2025-01-26 10:06:32,996 - INFO - parser.py:220 - Extracted ONNXRuntime meta-data for Hailo model (completion time: 00:00:01.02)
+2025-01-26 10:06:34,335 - INFO - parser.py:278 - Simplified ONNX model for a parsing retry attempt (completion time: 00:00:02.35)
+2025-01-26 10:06:34,842 - INFO - parser_cli.py:234 - According to recommendations, retrying parsing with end node names: ['/model.22/Concat_3'].
+2025-01-26 10:06:34,842 - INFO - parser.py:162 - Translation started on ONNX model yolov8s
+2025-01-26 10:06:34,967 - INFO - parser.py:197 - Restored ONNX model yolov8s (completion time: 00:00:00.12)
+2025-01-26 10:06:35,641 - INFO - parser.py:220 - Extracted ONNXRuntime meta-data for Hailo model (completion time: 00:00:00.80)
+2025-01-26 10:06:36,703 - INFO - onnx_translator.py:2569 - NMS structure of yolov8 (or equivalent architecture) was detected.
+2025-01-26 10:06:36,704 - INFO - onnx_translator.py:2571 - In order to use HailoRT post-processing capabilities, these end node names should be used: /model.22/cv2.0/cv2.0.2/Conv /model.22/cv3.0/cv3.0.2/Conv /model.22/cv2.1/cv2.1.2/Conv /model.22/cv3.1/cv3.1.2/Conv /model.22/cv2.2/cv2.2.2/Conv /model.22/cv3.2/cv3.2.2/Conv.
+2025-01-26 10:06:36,805 - INFO - parser.py:377 - Start nodes mapped from original model: 'images': 'yolov8s/input_layer1'.
+2025-01-26 10:06:36,806 - INFO - parser.py:378 - End nodes mapped from original model: '/model.22/Concat_3'.
+2025-01-26 10:06:36,898 - INFO - parser.py:292 - Translation completed on ONNX model yolov8s (completion time: 00:00:02.06)
+2025-01-26 10:06:38,221 - INFO - parser.py:162 - Translation started on ONNX model yolov8s
+2025-01-26 10:06:38,385 - INFO - parser.py:197 - Restored ONNX model yolov8s (completion time: 00:00:00.16)
+2025-01-26 10:06:39,187 - INFO - parser.py:220 - Extracted ONNXRuntime meta-data for Hailo model (completion time: 00:00:00.97)
+2025-01-26 10:06:40,082 - INFO - onnx_translator.py:2569 - NMS structure of yolov8 (or equivalent architecture) was detected.
+2025-01-26 10:06:40,082 - INFO - onnx_translator.py:2571 - In order to use HailoRT post-processing capabilities, these end node names should be used: /model.22/cv2.0/cv2.0.2/Conv /model.22/cv3.0/cv3.0.2/Conv /model.22/cv2.1/cv2.1.2/Conv /model.22/cv3.1/cv3.1.2/Conv /model.22/cv2.2/cv2.2.2/Conv /model.22/cv3.2/cv3.2.2/Conv.
+2025-01-26 10:06:40,184 - INFO - parser.py:377 - Start nodes mapped from original model: 'images': 'yolov8s/input_layer1'.
+2025-01-26 10:06:40,184 - INFO - parser.py:378 - End nodes mapped from original model: '/model.22/cv2.0/cv2.0.2/Conv', '/model.22/cv3.0/cv3.0.2/Conv', '/model.22/cv2.1/cv2.1.2/Conv', '/model.22/cv3.1/cv3.1.2/Conv', '/model.22/cv2.2/cv2.2.2/Conv', '/model.22/cv3.2/cv3.2.2/Conv'.
+2025-01-26 10:06:40,277 - INFO - parser.py:292 - Translation completed on ONNX model yolov8s (completion time: 00:00:02.06)
+2025-01-26 10:06:41,352 - INFO - client_runner.py:489 - Appending model script commands to yolov8s from string
+2025-01-26 10:06:41,386 - INFO - parser_cli.py:316 - Added nms postprocess command to model script.
+2025-01-26 10:06:41,592 - INFO - client_runner.py:1864 - Saved HAR to: /local/shared_with_docker/20250126/yolov8s.har
+2025-01-26 10:06:42,220 - INFO - client_runner.py:486 - Loading model script commands to yolov8s from /local/workspace/hailo_model_zoo/hailo_model_zoo/cfg/alls/generic/yolov8s.alls
+2025-01-26 10:06:42,279 - INFO - client_runner.py:489 - Loading model script commands to yolov8s from string
+2025-01-26 10:06:43,276 - IMPORTANT - sdk_backend.py:1089 - Starting Model Optimization
+2025-01-26 10:16:40,423 - IMPORTANT - sdk_backend.py:1130 - Model Optimization is done
+2025-01-26 10:16:42,361 - INFO - client_runner.py:1864 - Saved HAR to: /local/shared_with_docker/20250126/yolov8s.har
+2025-01-26 10:16:42,371 - INFO - client_runner.py:486 - Loading model script commands to yolov8s from /local/workspace/hailo_model_zoo/hailo_model_zoo/cfg/alls/generic/yolov8s.alls
+2025-01-26 10:16:42,474 - INFO - commands.py:4111 - ParsedPerformanceParam command, setting optimization_level(max=2)
+2025-01-26 10:16:42,474 - INFO - client_runner.py:489 - Appending model script commands to yolov8s from string
+2025-01-26 10:16:42,485 - INFO - commands.py:4111 - ParsedPerformanceParam command, setting optimization_level(max=2)
+2025-01-26 13:56:49,543 - INFO - client_runner.py:1864 - Saved HAR to: /local/shared_with_docker/20250126/yolov8s.har
