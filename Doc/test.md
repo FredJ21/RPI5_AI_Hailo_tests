@@ -1,5 +1,5 @@
 
-# Construire et entraîner de nombreuses architectures de réseaux de neurones 
+# Créer et entrainer son propre IA pour les modules HAILO du Raspberry PI5
 
 
 Je vous propose mon retour d’expérience sur la mise en œuvre d'une intelligence artificiel, sur une carte Raspberry PI5, capable de reconnaître et différentier un ensemble d'objets personnels.
@@ -22,7 +22,7 @@ Ou plus exactement, l'IA sera capable d'effectuer une prédiction de reconnaissa
 	3 - Création de son propre réseau de neurones 
       3.1 - Création de son jeu de donnée
 		3.1.1 - Création du Dataset en local 
-		3.1.2 - Création du Dataset sur Roboflow
+		3.1.2 - Création du Dataset sur le cloud
       3.2 - Entraînement du modèle IA
       3.3 - Conversion du modèle
       3.4 - Déploiement et tests
@@ -154,57 +154,67 @@ _Pour résumer très rapidement  :_
 Mise à jour du système PI OS :
 
 ```bash
-$ sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
+	sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
 ```
 
 Vérification de la version du micrologiciel (bootloader) du Raspberry Pi :
-		
-		$ sudo rpi-eeprom-update 
-		
-	pour utiliser la dernière version du bootloader : 
+```bash
+	sudo rpi-eeprom-update 
+```
 
-		$ sudo raspi-config
-		
+pour utiliser la dernière version du bootloader : 
+```bash
+	sudo raspi-config
+
 		--> Advanced Options --> Bootloader Version --> Latest
 		--> Finish  --> MAIS ne pas rebooter tout de suite ! 
+```
 
-	mise à jour du micrologiciel (bootloader) du Raspberry Pi :
+mise à jour du micrologiciel (bootloader) du Raspberry Pi :
 		
-		$ sudo rpi-eeprom-update -a 
+```bash
+	sudo rpi-eeprom-update -a 
+```
 	
-	et reboot 
+et reboot 
 	
-		$ sudo reboot 
-
+```bash
+	sudo reboot 
+```
 
 	
-	en suite , pour forcer les vitesses Gen 3.0 (8 GT/s) du bus PCIe :	
+en suite , pour forcer les vitesses Gen 3.0 (8 GT/s) du bus PCIe :<br>	
+dans ```/boot/firmware/config.txt```
 	
-		dans /boot/firmware/config.txt
-		--> dtparam=pciex1_gen=3
+```bash
+	dtparam=pciex1_gen=3
+```
 
+et enfin, installation des pilotes et utilitaires HAILO :
 
-	et enfin, installation des pilotes et utilitaires HAILO :
+```bash
+sudo apt install hailo-all 		
+```
 
-        $ sudo apt install hailo-all 		
+ce package à pour rôle d'installer les dépendances suivantes (janv2025):
 
-	ce package à pour rôle d'installer les dépendances suivantes (janv2025):
-	
+```bash
 		hailofw (>= 4.19.0), 
 		hailort (>= 4.19.0), 
 		hailo-tappas-core (>= 3.30.0), 
 		rpicam-apps-hailo-postprocess (>= 1.5.3), 
 		python3-hailort (>= 4.19.0)
-
+```
 	
-	Il est temps maintenant, de vérifier la présence du module AI et de la ( ou des ) caméra(s)
+Il est temps maintenant, de vérifier la présence du module AI et de la ( ou des ) caméra(s)
 	
 	
 
 ## le module AI-Kit
 
-pour le Kit AI équipé du module HAILO 8L
+le Kit AI équipé du module **HAILO 8L**
 
+```bash
 	$ hailortcli fw-control identify
 	
 		Executing on device: 0000:01:00.0
@@ -217,13 +227,14 @@ pour le Kit AI équipé du module HAILO 8L
 		Serial Number: HLDDLBB241602841
 		Part Number: HM21LB1C2LAE
 		Product Name: HAILO-8L AI ACC M.2 B+M KEY MODULE EXT TMP
+```
 
 
 
 ## la carte AI
 
-pour la carte AI Hat+ équipée du module HAILO 8
-
+la carte AI Hat+ équipée du module **HAILO 8**
+```bash
 	$ hailortcli fw-control identify
 
 		Executing on device: 0000:01:00.0
@@ -236,7 +247,7 @@ pour la carte AI Hat+ équipée du module HAILO 8
 		Serial Number: <N/A>
 		Part Number: <N/A>
 		Product Name: <N/A>
-
+```
 
 ## Les cameras RPI
 
