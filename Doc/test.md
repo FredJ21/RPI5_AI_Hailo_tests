@@ -238,7 +238,7 @@ $ hailortcli fw-control identify
 		Product Name: <N/A>
 ```
 
-## Vérification de la présence de la, ou des, camera(s) RPI
+## Vérification de la présence de la (ou des) camera(s) RPI
 
 | <a href="photos/IMG_3762.JPEG"><img src="photos/IMG_3762.JPEG" width="100%"></a> | <a href="photos/IMG_3764.JPEG"><img src="photos/IMG_3764.JPEG" width="100%"></a> | <a href="photos/IMG_3760.JPEG"><img src="photos/IMG_3760.JPEG" width="100%"></a> |
 |---|---|---|
@@ -297,28 +297,35 @@ rpicam-hello -t 0 --camera 1 --post-process-file /usr/share/rpi-camera-assets/ha
 <div style="text-align:center"><img src="photos/todo.jpeg" width=300/></div>
 
 
-D'autres tests sont décrits dans la documentation officielle du Raspberry PI :
-	https://www.raspberrypi.com/documentation/computers/ai.html
+D'autres tests sont décrits dans la documentation officielle du Raspberry PI :<br>
+--> https://www.raspberrypi.com/documentation/computers/ai.html
 
+---
 
-Pour maintenant aller un peu plus loin, nous pouvons tester les exemples proposés par la société HAILO 
+Pour maintenant aller un peu plus loin,<br>
+nous pouvons tester les exemples proposés par la société HAILO :
 
-	$ git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
-	$ cd hailo-rpi5-examples
-	$ ./install.sh
+```bash
+	git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
+	cd hailo-rpi5-examples
+	./install.sh
 
-	$ source setup_env.sh
-	
-	pour lancer l'exemple sur un vidéo
-	$ python basic_pipelines/detection.py
-	
-	ou tester de puis la camera 
+	source setup_env.sh
+```
+puis, pour lancer l'exemple sur un vidéo :
+
+```bash
+python basic_pipelines/detection.py
+```
+ou, pour tester de puis la camera  :
+```bash
 	$ python basic_pipelines/detection.py --input rpi
-	
+```
 		
-	Référence : 
-	https://github.com/hailo-ai/hailo-rpi5-examples
-	https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/README.md#installation
+_Références :_ 
+
+https://github.com/hailo-ai/hailo-rpi5-examples<br>
+https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/README.md#installation<br>
 	
 
 
@@ -326,28 +333,61 @@ Pour maintenant aller un peu plus loin, nous pouvons tester les exemples propos�
 
 # Partie 3 - Création de son propre réseau de neurones
 
+Maintenant que tout est en place, nous pouvons rentrer dans le vif du sujet  !!!<br>
+
+L'objectif est donc de :
+
+* créer une IA de reconnaissance de formes simples
+* sur la base de ses propres photos ( ou vidéos )
+* et qui puisse exploiter la puissance d'un module IA d'un Raspbeery PI5
+
+
+Nous pouvons distinguer 4 grandes étapes décrites plus bas : 
+
+* la création de son jeu de données, de son dataset
+* l'entrainement du modèle IA
+* la conversion, ou compilation, du modèle
+* le déploiment et les tests    
 
 
 
-
-
-
+_Archive du projet :_<br>
+https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
 
 ---
 
 ## 3.1 - Création de son jeu de donnée
 
-Pour la création du Dataset, 2 méthodes se présente à moi : 
- - Tout réaliser en local à l'aide d'outils spécifiques et/ou scripts Python 
- - Utiliser la platforme  Roboflow, en ligne, dans le cloud 
+Pour la création du Dataset, plusieurs méthodes se présente à nous : 
+ 
+* Tout réaliser en local à l'aide d'outils spécifiques et/ou scripts Python 
+* Utiliser la platforme *Roboflow*, en ligne, dans le cloud 
 
-... remarque !  il y peut être d'autres méthode ...
+_remarque :_ il y a certainement d'autres méthodes ...
 
+
+La création du dataset consiste à créer une collection d'images représentatives des objets que l'on souhaite détecter.<br> 
+ces images devront être annotés avec l'emplacement et le nom de l'objet<br>
+
+
+Mais il quelques éléménets à prendre en considération 
+
+* le format du dataset 
+
+--> YOLOv8, comme ses prédécesseurs, fonctionne mieux avec des images de résolution carrée.
+--> 640x640 (par défaut pour YOLOv8) : Un bon compromis entre précision et performance. 
 
 
 
 ### 3.1.1 Création du Dataset en local 
+
+
+
+
+
+
+
 
 ### 3.1.2 Création du Dataset sur Roboflow
 
