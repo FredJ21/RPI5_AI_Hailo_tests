@@ -119,10 +119,11 @@ Ce Bus PCIe x4  permet en suite de connecter une carte de type **Alftel 12x PCI 
 
 Nous pourions donc installer 12 modules Hailo-8L au format M2 !!! <br>
 
-<img src="img/Hat_uPCIty_Lite.png"  width=346 />
-<img src="img/m2-alftel-12x-pcie-m2-carrier-board.png" width=346/>
+<a href="img/Hat_uPCIty_Lite.png"><img src="img/Hat_uPCIty_Lite.png" width=400></a>  <a href="img/m2-alftel-12x-pcie-m2-carrier-board.png"><img src="img/m2-alftel-12x-pcie-m2-carrier-board.png" width=400></a>
+
 
 <img src="img/Screenshot-2024-11-11-at-14.13.31-800x400.png" width=700/><br> 
+
 https://youtu.be/oFNKfMCGiqE
 
 Mais puisque nous disposons d'un bus PCIe x4, il serait donc possible de plugger directement une carte graphique (GPU) type RTX xxxx sur le Hat uPCIty Lite  ... !!!<br>  
@@ -240,8 +241,8 @@ $ hailortcli fw-control identify
 
 ## Vérification de la présence de la (ou des) camera(s) RPI
 
-| <a href="photos/IMG_3762.JPEG"><img src="photos/IMG_3762.JPEG" width="100%"></a> | <a href="photos/IMG_3764.JPEG"><img src="photos/IMG_3764.JPEG" width="100%"></a> | <a href="photos/IMG_3760.JPEG"><img src="photos/IMG_3760.JPEG" width="100%"></a> |
-|---|---|---|
+<a href="photos/IMG_3762.JPEG"><img src="photos/IMG_3762.JPEG" width="33%"></a> <a href="photos/IMG_3764.JPEG"><img src="photos/IMG_3764.JPEG" width="33%"></a> <a href="photos/IMG_3760.JPEG"><img src="photos/IMG_3760.JPEG" width="33%"></a>
+
 
 Comme on peut le voir sur ces photos, j'ai équipé mon Raspberry PI de 2 cameras.<br>
 Ceux sont deux cameras **module 3** équipées du capteur Quad Bayer IMX708 12MP.<br>
@@ -339,7 +340,7 @@ L'objectif est donc de :
 
 * créer une IA de reconnaissance de formes simples
 * sur la base de ses propres photos ( ou vidéos )
-* et qui puisse exploiter la puissance d'un module IA d'un Raspbeery PI5
+* et qui puisse exploiter la puissance d'un module IA d'un Raspberry PI5
 
 
 Nous pouvons distinguer 4 grandes étapes décrites plus bas : 
@@ -368,22 +369,165 @@ _remarque :_ il y a certainement d'autres méthodes ...
 
 
 La création du dataset consiste à créer une collection d'images représentatives des objets que l'on souhaite détecter.<br> 
-ces images devront être annotés avec l'emplacement et le nom de l'objet<br>
+Ces images devront être annotés avec l'emplacement et le nom de l'objet<br>
 
 
 Mais il quelques éléménets à prendre en considération 
 
 * le format du dataset 
 
---> YOLOv8, comme ses prédécesseurs, fonctionne mieux avec des images de résolution carrée.
---> 640x640 (par défaut pour YOLOv8) : Un bon compromis entre précision et performance. 
+TODO
+
+	YOLO (You Only Look Once)
+	--> YOLOv8, comme ses prédécesseurs, fonctionne mieux avec des images de résolution carrée.
+	--> 640x640 (par défaut pour YOLOv8) : Un bon compromis entre précision et performance. 
+
+	--> arboressance des répertoires 
+	--> le format des fichiers d'annotation 
+	--> le nombre de classes
+	--> les noms des classes
+
+
+	Fred_Dataset/
+	├── data.yaml
+	├── test
+	│   ├── images
+	│   └── labels
+	├── train
+	│   ├── images
+	│   └── labels
+	└── valid
+		├── images
+		└── labels
+
+70 / 15 / 15 
+
 
 
 
 ### 3.1.1 Création du Dataset en local 
 
+J'ai réalisé de nombreux tests de création de dataset, avec 12 objets différents (12 classes),
+différents fonds, plusieurs type d'éclairage ...  mais ca commencait à se compiquer un peu ... 
+surtout quand le résultat attendu n'était pas au rendez vous .... 
 
 
+Les fichiers sources, de mon derniers tests, son disponibles dans mon repo GitHub :
+
+	https://github.com/FredJ21/RPI5_AI_Hailo_tests
+	[GIT]RPI5_AI_Hailo_tests/Dataset/Fred_Dataset/images_HD_2
+
+Ce Dataset est composé de 2 classes  :  "carré vert"  & "carré rouge"<br>
+
+*Les photos :*
+
+J'ai donc fait plein de photos de mes pièces en vaillant, bin évidement, à réaliser autant de photos pour chacune d'entre elle : 
+
+- 150 photos pour le trainning  dans le repertoire *"train"*
+- 30 photos pour la validation dans le repertoire *"valid"*
+- 30 photos pour les tests dans le repertoire *"test"*
+
+Pour réaliser ces photos, c'est très simple !  il suffit d'utiliser la camera du Raspberry ! <br>
+Avec la commande suivante : 
+
+```bash
+rpicam-jpeg  --camera ${CAMERA} --output ${FILE} --timeout ${TIMEOUT} --autofocus-mode manual --lens-position 0.0
+```
+Cela produit une image haute définition de 4608x2592 pixels d'environ 3.3 Mo.
+
+<a href="photos/1734219226.jpg"><img src="photos/1734219226.jpg" width="49%"></a>
+<a href="photos/1734220832.jpg"><img src="photos/1734220832.jpg" width="49%"></a>
+<a href="photos/1734220572.jpg"><img src="photos/1734220572.jpg" width="49%"></a>
+<a href="photos/1734219623.jpg"><img src="photos/1734219623.jpg" width="49%"></a>
+
+Le script **"prendre_une_photo.sh"** ( dans le répertoire [GIT]RPI5_AI_Hailo_tests/Scripts/bin ) permet d'automatiser la séance 
+en premant une photo toutes les 2 secondes et en répartissant les clichés des les repertoires : train, valid, et test.<br>
+Le nom des fichiers correspond à un horodatage de type timestamp. 
+
+
+*Les labels :*
+
+Il est temps maintenant d'annoter les images.<br>
+cette opération d'étiquetage consiste à dessiner un cadre de délimitation autour des objets présents sur les photos, tout en précisant sa classe ( "carré vert" ou "carré rouge" ) ?<br>
+
+Cette opération nécessite une certaine précision et un peu de patience !!!<br>
+Le cadres doit etre serré mmais pas trop proche. Il ne doit pas y avoir de surajustement dans le cas ou plusieurs objets sont présents sur la même photo.
+
+Dans mon cas, j'ai choisi de réaliser des photos distinctes par type d'objet. J'ai donc qu'un seul objet par photo. 
+
+Je souhaitais également réaliser cette opération complètement en local, sur mon Raspberry PI5, à l'aide d'un utilistaire très léger.<br>
+J'ai donc utilisé **"YOLO-Label"** que l'on peut trouver sur le dépot du projet : 
+
+	https://github.com/developer0hye/Yolo_Label
+
+et également dispo sur mon GiHub, dans une verions pré-compilé pour le Raspberry PI en version Debian/PiOS 12 (bookworm)  
+
+```bash
+cd RPI5_AI_Hailo_tests//Scripts/bin/Yolo_Label/
+chmod +x YoloLabel
+./YoloLabel
+```
+
+<img src="img/47698872-5bc80980-dc54-11e8-8984-e3e1230eccaf.gif">
+
+*(annimation d'exemple du site officiel)*
+
+
+L'utilisation est très simple et doit être réalisé sur l'ensemble des photos de DataSet.<br>
+Tous les fichiers jpeg sont maintenant accompagnés par un fichier text du même nom mais avec l'extention .txt .   
+
+	1734219226.jpg	-->  1734219226.txt
+	1734220832.jpg  -->  1734220832.txt
+	1734220572.jpg  -->  1734220572.txt
+	1734219623.jpg  -->  1734219623.txt
+
+Ces fichiers contiennent 5 valeurs numérique :
+* l'index de la classe d'objet (0->carré route, 1->carré vert) et les 
+* la position en X du centre de l’objet
+* la position en Y du centre de l’objet
+* la largeur de l’objet 
+* la hauteur de l’objet
+
+Les coordonnées sont normalisées de 0 à 1
+
+*Augementation du nombre d'image*
+
+Nous avons donc maintenant : 150 photos d'entrainement, 30 photos de validation, et 30 photos de test <br>   
+au format 4608x2592 pixels.<br>
+Chaque photo est acompagné de son fichier lablel 
+
+
+
+
+```bash
+$ cat train/1734219226.txt 
+
+1 0.637242 0.526384 0.053579 0.094291
+```
+
+
+
+
+
+
+
+
+
+
+----
+
+
+
+
+
+
+
+Script dans RPI5_AI_Hailo_tests/Scripts/bin
+
+	dataset_HD_to_640x640_v2.py
+	dataset_HD_to_640x640_v2.conf
+
+TODO : à vérifier
 
 
 
@@ -521,6 +665,13 @@ Loaded image: hailo_ai_sw_suite_2025-01:1
 
 	je vais donc dans le répertoire de partage dans lequel un repertoire de travail , avec la date du jour, contient mon fichier onnx et les images de test de mon dataset 
 	
+	cp RPI5_AI_Hailo_tests/Results/20250125_result_from_210125_4_shapes_TEST.v3i.yolov8/weights/best.onnx shared_with_docker
+	cp -rv RPI5_AI_Hailo_tests/Dataset/210125_4_shapes_TEST.v3i.yolov8/test   shared_with_docker
+	cp -rv RPI5_AI_Hailo_tests/Dataset/210125_4_shapes_TEST.v3i.yolov8/valid  shared_with_docker
+	cp -rv RPI5_AI_Hailo_tests/Dataset/210125_4_shapes_TEST.v3i.yolov8/train  shared_with_docker
+	
+	
+	$ ./hailo_ai_sw_suite_docker_run.sh --resume
 	$ cd /local/shared_with_docker
 	$ sudo chown -R hailo:ht  
 	$ cd 20250126 
