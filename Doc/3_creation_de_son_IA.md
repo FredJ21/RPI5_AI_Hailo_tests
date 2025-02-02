@@ -399,13 +399,66 @@ Après avoir annoter l'ensemble des images, nous allons ajouter ces images à no
 
 
 Enfin, il nous reste à générer une nouvelle version de notre Dataset en apliquant des opérations de **rotation**, ajout de **bruit**, passage de certaines photos en **niveau de gris**, .... <br>
-Le but étant d'augmenter artificiellement le nombre de photos de notre Dataset<br>
+
+Dans la section "Dataset" --> "Generate Version"
+
+Le but étant, ici, d'augmenter artificiellement le nombre de photos de notre Dataset<br>
+
+<img src="photos/robotflow_11.png" width="40%"><br>
 
 
+#### Pour résumer :
+
+Nous sommes parti sur la base de :
+* 4 vidéos de 20 secondes 
+* un échantillonage de 5 images par seconde
+* ce qui donne : **99 images par classe** 
+
+Après l"opération de "split", nous obtenons :
+
+* 70 %  Train			--> 69 images
+* 20 %  Validation		--> 20 images	
+* 10 %  Test			--> 10 images
+
+Un total donc, pour l'ensemble des classes de  :
+
+* 276 image de trainning
+* 80 images de Validation
+* 40 image de Test
+   
+ensuite, la création d'une version du Dataset ( augmentation du nombre d'image)
+
+* rotation horizontal et vertical
+* gris 	15% des images
+* bruit 1.96%
+
+Lors de cet augmentation, nous sommes limité, dans la version gratuite de Roboflow, à 1500 images !<br>
+Nous avons donc maintenant : 	
+
+* 1380 image de trainning
+* 80 images de Validation
+* 40 image de Test
+
+#### Download Dataset
 
 
-Nous avons donc 
+Nous pouvons maintenant télécharger notre Dataset dans de nombreux formats<br>
+mais plus particulièrement au format **YOLOv8** pour la suite de notre projet<br>
 
+<img src="photos/robotflow_12.png" width="40%"><br>
+
+
+l'ensemble des fichiers sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépo Git :
+
+
+$ ls -l Dataset/210125_4_shapes_TEST.v2i.yolov8
+total 24
+-rw-rw-r-- 1 fredj21 fredj21  299 févr.  2 08:08 data.yaml
+-rw-rw-r-- 1 fredj21 fredj21  150 févr.  2 08:08 README.dataset.txt
+-rw-rw-r-- 1 fredj21 fredj21 1190 févr.  2 08:08 README.roboflow.txt
+drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 test
+drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 train
+drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 valid
 
 
 ```
