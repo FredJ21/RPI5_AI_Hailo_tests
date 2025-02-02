@@ -98,7 +98,7 @@ Enfin, les données doivent être répartis celon un certain ratio :
 * 15 % pour la validation --> rep *"valid"*
 * 15 % pour les tests --> rep *"test"*
 
-Nous pourions également evisager un repartition de 70/20/10 , ou 75/15/5 .... à tester ...
+Nous pourions également evisager un repartition de 70/20/10 , ou 75/15/10 .... à tester ...
 
 ---
 
@@ -243,11 +243,11 @@ En effet l'entrainenement de l'IA sur un plus grand nombre de photos permettra d
 
 Plusieurs solutions permettent d'augmenter le nombre de photos : 
 
-* recadrer l'image par rapport à l'objet en positionnant l'objet plus ou mois sur la droite ou plus ou mois sur la gauche <br>
+* **recadrer** l'image par rapport à l'objet en positionnant l'objet plus ou mois sur la droite ou plus ou mois sur la gauche <br>
 --> cette opération permet de passer d'un format de 4608x2592 pixels  à un format carré de 640x640 pixels
-* réaliser une ou plusieurs rotation d'image
-* ajouter artificièlement du bruit ( des points blancs ou noirs )
-* réaliser plusieurs itérations par image source
+* réaliser une ou plusieurs **rotation** d'image
+* ajouter artificièlement du **bruit** ( des points blancs ou noirs )
+* réaliser plusieurs **itérations** par image source
 
 
 J'ai dévoloppé un script Python pour réaliser cela  :
@@ -276,7 +276,7 @@ J'ai dévoloppé un script Python pour réaliser cela  :
 
 Le fichier de configuration défini les répertoires source et destination, le nombre de bruit, le nombre de retournent d'image<br>
 Le script se chargera également de recalculer la nouvelle position, en x et y, de l'objet et ses dimentions afin de produire un nouveau fichier label.<br>    
-Le répertoire cibe (REP_OUT) n'est pas obligé d'exister, le script se chargera de créer toute l'arboressance.
+Le répertoire cibe (REP_OUT) n'est pas obligé d'exister, le script se chargera de créer toute l'arboressance de répertoires.
 
 *GO !!!* 
 
@@ -309,6 +309,153 @@ Notre Dataset en prêt à être utilisé pour l'aprentissage  !!!
 
 
 ### 3.1.2 Création du Dataset sur Roboflow
+
+Une autre solution pour réaliser son dataset et l'annotation de ses images, est d'utiliser un outil en ligne.<br>
+
+**Roboflow** ( https://roboflow.com/ ) est une plateforme tout-en-un qui facilite la gestion, l'annotation, l'augmentation et l'exportation de datasets pour l'entraînement de modèles de vision par ordinateur. Elle est particulièrement utile pour des modèles comme YOLOv8, Faster R-CNN, SSD, et d'autres.
+
+On peut identifier plusieurs fonctionnalités très intéressantes :  
+
+* Annotation d’images : Interface web collaborative pour annoter rapidement les objets.
+* Augmentation des données : Ajout automatique de variations (rotation, flou, contraste, etc.) pour améliorer la robustesse du modèle.
+* Conversion de formats : Compatible avec YOLO, COCO, Pascal VOC, et d'autres standards.
+* Hébergement & API : Stocke et gère les datasets, avec accès via API pour automatiser les workflows.
+* Entraînement et déploiement : Intégration avec des frameworks d'IA (PyTorch, TensorFlow) et déploiement dans le cloud ou en edge computing.
+
+
+
+Une dès première fonctionnalité très interressante :  
+
+* **Roboflow permet d'extraire une série de photos depuis une vidéo !!!**
+
+#### Nouveau Dataset :
+
+Cette fois ci, pour ce nouveau Dataset, j'ai choisi un nouvel énoncé de départ :
+
+* un Dataset avec 4 classes : round, square, triangle, hexagon
+* les 4 objets sont de couleur identique ( vert )
+* les images sont extraites de 4 vidéos distinctes
+* chaque vidéo dure exactement de 20 secondes 
+
+
+Pour réaliser les vidés, c'est très simple !  il suffit d'utiliser la camera du Raspberry PI ! <br>
+Avec la commande suivante : 
+
+```bash
+	rpicam-vid --camera 0 -t20000 --autofocus-range normal --autofocus-speed fast -o square.mp4
+```
+
+Nous pouvons bien évidement ajuster les parametres d'autofocus et autres ... 
+
+Ces vidéos de départ sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.sources* du dépo Git :
+
+```bash
+	$ ls -al Dataset/210125_4_shapes_TEST.sources/
+		total 19516
+		-rw-rw-r-- 1 fredj21 fredj21 4881188 janv. 29 13:37 hexagon.mp4
+		-rw-rw-r-- 1 fredj21 fredj21 4985373 janv. 29 13:37 round.mp4
+		-rw-rw-r-- 1 fredj21 fredj21 4848499 janv. 29 13:37 square.mp4
+		-rw-rw-r-- 1 fredj21 fredj21 5261945 janv. 29 13:37 triange.mp4
+```
+
+Direction donc  --> http://www.roboflow.com/  
+
+Après s'être indentifier,<br>
+on crée un nouveau projet **public** de type "Object Detection" avec le mon des diférentes classes
+
+<img src="photos/robotflow_1.png" width="70%"></a>
+
+ensuite, nous ajoutons les classes à notre projet 
+* round, 
+* square, 
+* triangle, 
+* hexagon
+
+<img src="photos/robotflow_2.png" width="70%"></a>
+
+
+Maintenant, dans la section "Upload Data", nous importons chaque vidéo, l'une après l'autre<br>
+avec une fréquence d'échantillonage de **5 images par seconde** (choix arbitraire à adapter à ses besoins) <br> 
+
+<img src="photos/robotflow_3.png" width="45%">  <img src="photos/robotflow_4.png" width="45%">
+
+On crée des tache de type  **"Manual Labeling"**,  que l'on assigne à soi même.<br>
+
+En effet, la plateforme est collaborative, et permet d'assigner des taches à différentes personnes<br>
+Dans la section "Annotate", nous pouvous visualiser les différentes taches restants, la personne en charge de cette tache, le taux de réalisation    
+
+<img src="photos/robotflow_5.png" width="80%"><br>
+
+
+Pas de difficulté lors du labeling, il faut juste veiller à selectionner la bonne classe ....  et avoir un peu de patience !!! <br>
+
+<img src="photos/robotflow_annotate_1.png" width="45%"> <img src="photos/robotflow_annotate_2.png" width="45%">
+<img src="photos/robotflow_annotate_3.png" width="45%"> <img src="photos/robotflow_annotate_4.png" width="45%">
+
+
+Après avoir annoter l'ensemble des images, nous allons ajouter ces images à notre Dataset en utilisant la méthode *"Split Images Between Train/Valid/Test"* qui permetra de répartir aléatoirement nos photos pour les besoins de trainning, validation et test.
+
+<img src="photos/robotflow_10.png" width="80%"><br>
+
+
+Enfin, il nous reste à générer une nouvelle version de notre Dataset en apliquant des opérations de **rotation**, ajout de **bruit**, passage de certaines photos en **niveau de gris**, .... <br>
+Le but étant d'augmenter artificiellement le nombre de photos de notre Dataset<br>
+
+
+
+
+Nous avons donc 
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

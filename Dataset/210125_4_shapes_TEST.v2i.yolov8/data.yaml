@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['hexagon', 'round', 'square', 'triangle']
+
+roboflow:
+  workspace: fred-robotic
+  project: 210125_4_shapes_test
+  version: 2
+  license: MIT
+  url: https://universe.roboflow.com/fred-robotic/210125_4_shapes_test/dataset/2
