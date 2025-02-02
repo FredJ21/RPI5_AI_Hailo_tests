@@ -37,15 +37,15 @@ Pour la création du Dataset, plusieurs méthodes se présentent à nous :
 2. Utiliser une plateforme spécialisée, en ligne, dans le cloud 
 
 J'ai commencé, dans un premier temps, par réaliser mon jeu de donnée en local,<br>
-pour ensuite réaliser des versions plus complexes et certainenement éfficaces sur *Roboflow*,
-une platreforme particulière interressante pour notre besoin.<br>
+pour ensuite réaliser des versions plus complexes et certainement efficaces sur *Roboflow*,
+une plateforme particulière intéressante pour notre besoin.<br>
 Je vais donc décrire ces deux approches.
 
 
 La création du dataset consiste à créer une collection d'images représentatives des objets que l'on souhaite détecter.<br> 
 Ces images devront être annotés avec l'emplacement et le nom de l'objet visible.<br>
 
-#### Mais il y a quelques éléménets à prendre en considération :
+#### Mais il y a quelques éléments à prendre en considération :
 
 * le format du dataset : YOLOv8
 
@@ -59,16 +59,16 @@ Ce modèle d'IA est particulièrement adapté et préconiser pour le module HAIL
 #### Autres éléments importants :
 
 - YOLOv8, comme ses prédécesseurs, fonctionne mieux avec des images carrées.
-- les images doivent avoir une dimention de 640x640 pixels (par défaut pour YOLOv8) 
+- les images doivent avoir une dimension de 640x640 pixels (par défaut pour YOLOv8) 
    --> Un bon compromis entre précision et performance. 
 
-- l'arboressence des répertoires 
+- l’arborescence des répertoires 
 - le format des fichiers d'annotation 
 - le nombre de classes
-- le nommage des classes ( ex: "carré vert", "rond rouge", triange "jaune", .... )
+- le nommage des classes ( ex: "carré vert", "rond rouge", triangle "jaune", .... )
 
 
-Voici un exemple d'oraganisation du dataset au format YOLOv8 :
+Voici un exemple d’organisation du dataset au format YOLOv8 :
 
 ```
 	Mon_Dataset/
@@ -90,23 +90,23 @@ On y trouve :
 - 3 répertoires : *"train", "valid", "test"*
 - contenant chacun 2 sous répertoires : *"images" et "labels"* 
 
-Le fichier label, au format texte (.txt) est donc stocké dans un répertoir différent de l'image correspondante,<br>
+Le fichier label, au format texte (.txt) est donc stocké dans un répertoire différent de l'image correspondante,<br>
 mais le lien entre ces deux fichiers est fait par leur nom ( mon_image_12345.jpg --> mon_image_12345.txt )
 
-Enfin, les données doivent être répartis celon un certain ratio : 
+Enfin, les données doivent être répartis selon un certain ratio : 
 
 * 70 % pour le trainning --> rep *"train"*
 * 15 % pour la validation --> rep *"valid"*
 * 15 % pour les tests --> rep *"test"*
 
-Nous pourions également evisager un repartition de 70/20/10 , ou 75/15/10 .... à tester ...
+Nous pourrions également envisager un répartition de 70/20/10 , ou 75/15/10 .... à tester ...
 
 ---
 
-### 3.1.1 Création du Dataset en local 
+## 3.1.1 Création du Dataset en local 
 
 J'ai réalisé de nombreux tests de création de dataset, avec 12 objets différents (12 classes),
-différents fonds, plusieurs type d'éclairage ...  mais ca commencait à se compiquer un peu ... 
+différents fonds, plusieurs type d'éclairage ...  mais ça commençait à se compliquer un peu ... 
 surtout quand le résultat attendu n'était pas vraiment au rendez vous .... 
 
 J'ai donc réduit la voilure avec Dataset est composé de 2 classes  :  "carré vert"  & "carré rouge"<br>
@@ -130,9 +130,9 @@ ls -al Dataset/Fred_Dataset/images_HD_2
 
 J'ai donc fait plein de photos de mes pièces en vaillant, bien évidement, à réaliser autant de photos pour chacune d'entre elle : 
 
-- 75 photos pour le trainning  dans le repertoire *"train"* (*)
-- 15 photos pour la validation dans le repertoire *"valid"* (*)
-- 15 photos pour les tests dans le repertoire *"test"* (*)
+- 75 photos pour le trainning  dans le répertoire *"train"* (*)
+- 15 photos pour la validation dans le répertoire *"valid"* (*)
+- 15 photos pour les tests dans le répertoire *"test"* (*)
 
 **( pour chaque classe d'objet !!! )*
 
@@ -150,7 +150,7 @@ Cela produit une image haute définition de 4608x2592 pixels et d'environ 3,3 Mo
 <a href="photos/1734219623.jpg"><img src="photos/1734219623.jpg" width="49%"></a>
 
 Le script **"prendre_une_photo.sh"** ( dans le répertoire [GIT]Scripts/bin ) permet d'automatiser la séance !<br>
-en premant une photo toutes les 2 secondes et en répartissant les clichés des les repertoires : train, valid, et test.<br>
+en prenant une photo toutes les 2 secondes et en répartissant les clichés des les répertoires : train, valid, et test.<br>
 Le nom des fichiers correspond à un horodatage de type timestamp. 
 
 ```bash
@@ -173,16 +173,16 @@ Il est temps maintenant d'annoter les images.<br>
 Cette opération d'étiquetage consiste à dessiner un cadre de délimitation autour des objets présents sur les photos, tout en précisant sa classe ( "carré vert" ou "carré rouge" ) ?<br>
 
 Cette opération nécessite une certaine précision et un peu de patience !!!<br>
-Le cadres doit etre serré mais pas trop proche.<br>
-Il ne doit pas y avoir de surajustement dans le cas ou plusieurs objets sont présents sur la même photo.<br>
+Le cadres doit être serré mais pas trop proche.<br>
+Il ne doit pas y avoir de sur ajustement dans le cas ou plusieurs objets sont présents sur la même photo.<br>
 *( mais par soucis de simplification, mes images ne comportent q'un seul objet )*
 
 Dans mon cas, j'ai choisi de réaliser des photos distinctes par type d'objet. J'ai donc qu'un seul objet par photo. 
 
-Je souhaitais également réaliser cette opération complètement en local, sur mon Raspberry PI5, à l'aide d'un utilistaire très léger.<br>
+Je souhaitais également réaliser cette opération complètement en local, sur mon Raspberry PI5, à l'aide d'un utilitaire très léger.<br>
 J'ai utilisé **"YOLO-Label"** que l'on peut trouver ici : https://github.com/developer0hye/Yolo_Label
 
-"YOLO-Label" est également dispo dans une verions pré-compilé pour le Raspberry PI 64bits (version Debian/PiOS 12 bookworm) sur mon GIT :  
+"YOLO-Label" est également disponible dans une version pré-compilé pour le Raspberry PI 64bits (version Debian/PiOS 12 bookworm) sur mon GIT :  
 
 ```bash
 cd RPI5_AI_Hailo_tests//Scripts/bin/Yolo_Label/
@@ -192,20 +192,20 @@ chmod +x YoloLabel
 
 <img src="img/47698872-5bc80980-dc54-11e8-8984-e3e1230eccaf.gif">
 
-*(annimation d'exemple du site officiel)*
+*(animation d'exemple du site officiel)*
 
 
 L'utilisation est très simple et doit être réalisé sur l'ensemble des photos de DataSet.<br>
-- on sélectionne le répertoire de travail qui contien les images
-- on selectionne la liste des classes ( *labels_list.txt* )
+- on sélectionne le répertoire de travail qui contient les images
+- on sélectionne la liste des classes ( *labels_list.txt* )
 - on choisi une classe 
-- on dessinne en carré pour délimiter notre pièce 
+- on dessine en carré pour délimiter notre pièce 
 - next ... 
 
 <img src="photos/Capture_YoloLabel_1.png" width="49%"></a>
 <img src="photos/Capture_YoloLabel_2.png" width="49%"></a>
 
-Tous les fichiers jpeg sont maintenant accompagnés par un fichier text du même nom mais avec l'extention .txt .   
+Tous les fichiers jpeg sont maintenant accompagnés par un fichier text du même nom mais avec l’extension .txt .   
 
 	1734219226.jpg	-->  1734219226.txt
 	1734220832.jpg  -->  1734220832.txt
@@ -230,19 +230,19 @@ Les coordonnées sont normalisées de 0 à 1
 
 ----
 
-####  Augementation du nombre d'image
+####  Augmentation du nombre d'image
 
 Nous avons donc, pour l'ensemble de nos objets : 
-- 150 photos d'entrainement, 
+- 150 photos d'entraînement, 
 - 30 photos de validation, 
 - 30 photos de test,
-- les photos sont au format .jpg et d'une dimention de 4608x2592 pixels,
-- chaque photo est acompagné de son fichier lablel au format .txt
+- les photos sont au format .jpg et d'une dimension de 4608x2592 pixels,
+- chaque photo est accompagné de son fichier label au format .txt
 
 
-Il maintenant necessaire de redimentionner les photos au format 640x640 pixels (pour YOLOv8),<br>
-de plus, il est interressant d'**augmenter artifitiellement** le nombre de photos !!<br>
-En effet l'entrainenement de l'IA sur un plus grand nombre de photos permettra d'obtenir de meilleurs résultats 
+Il maintenant nécessaire de redimensionner les photos au format 640x640 pixels (pour YOLOv8),<br>
+de plus, il est intéressant d'**augmenter artificiellement** le nombre de photos !!<br>
+En effet l'entraînement de l'IA sur un plus grand nombre de photos permettra d'obtenir de meilleurs résultats 
 
 
 Plusieurs solutions permettent d'augmenter le nombre de photos : 
@@ -250,11 +250,11 @@ Plusieurs solutions permettent d'augmenter le nombre de photos :
 * **recadrer** l'image par rapport à l'objet en positionnant l'objet plus ou mois sur la droite ou plus ou mois sur la gauche <br>
 --> cette opération permet de passer d'un format de 4608x2592 pixels  à un format carré de 640x640 pixels
 * réaliser une ou plusieurs **rotation** d'image
-* ajouter artificièlement du **bruit** ( des points blancs ou noirs )
+* ajouter artificiellement du **bruit** ( des points blancs ou noirs )
 * réaliser plusieurs **itérations** par image source
 
 
-J'ai dévoloppé un script Python pour réaliser cela  :
+J'ai développé un script Python pour réaliser cela  :
 
 ```bash 
 cd RPI5_AI_Hailo_tests/Scripts/
@@ -279,8 +279,8 @@ cat dataset_HD_to_640x640.conf
 ```
 
 Le fichier de configuration défini les répertoires source et destination, le nombre de bruit, le nombre de retournent d'image<br>
-Le script se chargera également de recalculer la nouvelle position, en x et y, de l'objet et ses dimentions afin de produire un nouveau fichier label.<br>    
-Le répertoire cibe (REP_OUT) n'est pas obligé d'exister, le script se chargera de créer toute l'arboressance de répertoires.
+Le script se chargera également de recalculer la nouvelle position, en x et y, de l'objet et ses dimensions afin de produire un nouveau fichier label.<br>    
+Le répertoire cible (REP_OUT) n'est pas obligé d'exister, le script se chargera de créer toute l’arborescence de répertoires.
 
 *GO !!!* 
 
@@ -291,11 +291,11 @@ python dataset_HD_to_640x640.py
 
 ```
 
-Puisque nous avons réaliseé 15 itérations, pour lesquels nous avons une version avec et sans bruit, et 3 retournents en plus de la position de départ    
+Puisque nous avons réalisé 15 itérations, pour lesquels nous avons une version avec et sans bruit, et 3 retournents en plus de la position de départ    
 
-- 150 * 15 * 2 * 4 --> 18000 photos le repertoire *"train"* 
-- 30 * 15 * 2 * 4 --> 3600 photos dans le repertoire *"valid"* 
-- 30 * 15 * 2 * 4 --> 3600 photos dans le repertoire *"test"*
+- 150 * 15 * 2 * 4 --> 18000 photos le répertoire *"train"* 
+- 30 * 15 * 2 * 4 --> 3600 photos dans le répertoire *"valid"* 
+- 30 * 15 * 2 * 4 --> 3600 photos dans le répertoire *"test"*
 
 cd qui donne un total de 25200 photos accompagnées de leurs annotations !<br>
 en effet : 
@@ -312,7 +312,7 @@ Notre Dataset en prêt à être utilisé pour l'aprentissage  !!!
 ---
 
 
-### 3.1.2 Création du Dataset sur Roboflow
+## 3.1.2 Création du Dataset sur Roboflow
 
 Une autre solution pour réaliser son dataset et l'annotation de ses images, est d'utiliser un outil en ligne.<br>
 
@@ -328,7 +328,7 @@ On peut identifier plusieurs fonctionnalités très intéressantes :
 
 
 
-Une dès première fonctionnalité très interressante :  
+Une dès première fonctionnalité très intéressante :  
 
 * **Roboflow permet d'extraire une série de photos depuis une vidéo !!!**
 
@@ -362,14 +362,17 @@ ls -al Dataset/210125_4_shapes_TEST.sources/
 	-rw-rw-r-- 1 fredj21 fredj21 5261945 janv. 29 13:37 triange.mp4
 ```
 
+---
+
 Direction donc  --> http://www.roboflow.com/  
 
-Après s'être indentifier,<br>
-on crée un nouveau projet **public** de type "Object Detection" avec le mon des diférentes classes
+Après s'être identifié,<br>
+on crée un nouveau projet **public** de type "Object Detection" avec le mon des déférentes classes
 
 <img src="photos/robotflow_1.png" width="70%"></a>
 
-ensuite, nous ajoutons les classes à notre projet 
+Ensuite, nous ajoutons les classes à notre projet 
+
 * round, 
 * square, 
 * triangle, 
@@ -379,30 +382,30 @@ ensuite, nous ajoutons les classes à notre projet
 
 
 Maintenant, dans la section "Upload Data", nous importons chaque vidéo, l'une après l'autre<br>
-avec une fréquence d'échantillonage de **5 images par seconde** (choix arbitraire à adapter à ses besoins) <br> 
+avec une fréquence d’échantillonnage de **5 images par seconde** (choix arbitraire à adapter à ses besoins) <br> 
 
 <img src="photos/robotflow_3.png" width="45%">  <img src="photos/robotflow_4.png" width="45%">
 
 On crée des tache de type  **"Manual Labeling"**,  que l'on assigne à soi même.<br>
 
 En effet, la plateforme est collaborative, et permet d'assigner des taches à différentes personnes<br>
-Dans la section "Annotate", nous pouvous visualiser les différentes taches restants, la personne en charge de cette tache, le taux de réalisation    
+Dans la section "Annotate", nous pouvons visualiser les différentes taches restants, la personne en charge de cette tache, le taux de réalisation    
 
 <img src="photos/robotflow_5.png" width="80%"><br>
 
 
-Pas de difficulté lors du labeling, il faut juste veiller à selectionner la bonne classe ....  et avoir un peu de patience !!! <br>
+Pas de difficulté lors du labeling, il faut juste veiller à sélectionner la bonne classe ....  et avoir un peu de patience !!! <br>
 
 <img src="photos/robotflow_annotate_1.png" width="45%"> <img src="photos/robotflow_annotate_2.png" width="45%">
 <img src="photos/robotflow_annotate_3.png" width="45%"> <img src="photos/robotflow_annotate_4.png" width="45%">
 
 
-Après avoir annoter l'ensemble des images, nous allons ajouter ces images à notre Dataset en utilisant la méthode *"Split Images Between Train/Valid/Test"* qui permetra de répartir aléatoirement nos photos pour les besoins de trainning, validation et test.
+Après avoir annoter l'ensemble des images, nous allons ajouter ces images à notre Dataset en utilisant la méthode *"Split Images Between Train/Valid/Test"* qui permettra de répartir aléatoirement nos photos pour les besoins de trainning, validation et test.
 
 <img src="photos/robotflow_10.png" width="80%"><br>
 
 
-Enfin, il nous reste à générer une nouvelle version de notre Dataset en apliquant des opérations de **rotation**, ajout de **bruit**, passage de certaines photos en **niveau de gris**, .... <br>
+Enfin, il nous reste à générer une nouvelle version de notre Dataset en appliquant des opérations de **rotation**, ajout de **bruit**, passage de certaines photos en **niveau de gris**, .... <br>
 
 Dans la section "Dataset" --> "Generate Version"
 
@@ -415,7 +418,7 @@ Le but étant, ici, d'augmenter artificiellement le nombre de photos de notre Da
 
 Nous sommes parti sur la base de :
 * 4 vidéos de 20 secondes 
-* un échantillonage de 5 images par seconde
+* un échantillonnage de 5 images par seconde
 * ce qui donne : **99 images par classe** 
 
 Après l"opération de "split", nous obtenons :
@@ -430,7 +433,7 @@ Un total donc, pour l'ensemble des classes de  :
 * 80 images de Validation
 * 40 image de Test
    
-ensuite, la création d'une version du Dataset ( augmentation du nombre d'image)
+Ensuite, la création d'une version du Dataset ( augmentation du nombre d'image)
 
 * rotation horizontal et vertical
 * gris 	15% des images
@@ -452,7 +455,7 @@ Nous pouvons maintenant télécharger notre Dataset dans de nombreux formats<br>
 <img src="photos/robotflow_12.png" width="40%"><br>
 
 
-l'ensemble des fichiers sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépo Git :
+l'ensemble des fichiers se trouve dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépo Git :
 
 ```bash
 ls -l Dataset/210125_4_shapes_TEST.v2i.yolov8
@@ -496,7 +499,7 @@ python
 	dataset = version.download("yolov8")
 ```
 
-## 3.2 - Entraînement du modèle IA
+# 3.2 - Entraînement du modèle IA
 
 2 solutions :  
 
@@ -593,7 +596,7 @@ root@50b81f5f3e9f:/data/my_dataset# ls -l
 
 ### YOLO - Entrainement 
 
-**VOILA !!! Nous y sommes !!!**   ... nous allons maintenant le traintement d'aprenntissage de notre IA 
+**VOILA !!! Nous y sommes !!!**   ... nous allons maintenant lancer le traintement d'aprenntissage de notre IA 
 
 ```bash
 cd /data/my_yolo8s
@@ -636,7 +639,9 @@ total 43968
 
 ### YOLO - Test d'Inference
 
+```bash 
 yolo task=detect mode=predict model=/workspace/ultralytics/runs/detect/train/weights/best.pt conf=0.25 source=/data/my_dataset/test/images save=True
+```
 
 *résultat :*
 
@@ -697,3 +702,16 @@ Nous pouvons mantenant sortir de notre conteneur Docker
 ```bash
 exit
 ```
+
+
+# 3.3 - Conversion du modèle
+
+
+TODO
+
+
+
+# 3.4 - Déploiement et tests
+
+
+TODO
