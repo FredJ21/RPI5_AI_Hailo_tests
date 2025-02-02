@@ -1,6 +1,6 @@
 # Partie 2 - Configuration rapide et tests des modules AI
 
-## 2.1 Premiere configuration 
+## 2.1 Première configuration  
 
 Bon ! 
 Pour bien démarrer, la première chose à faire est de suivre les instructions d'installation hardware et software sur le site officiel.
@@ -102,10 +102,10 @@ $ hailortcli fw-control identify
 <a href="photos/IMG_3762.JPEG"><img src="photos/IMG_3762.JPEG" width="33%"></a> <a href="photos/IMG_3764.JPEG"><img src="photos/IMG_3764.JPEG" width="33%"></a> <a href="photos/IMG_3760.JPEG"><img src="photos/IMG_3760.JPEG" width="33%"></a>
 
 
-Comme on peut le voir sur ces photos, j'ai équipé mon Raspberry PI de 2 cameras.<br>
+Comme on peut le voir  sur ces photos, j'ai équipé mon Raspberry PI de 2 cameras.<br>
 Ceux sont deux cameras **module 3** équipées du capteur Quad Bayer IMX708 12MP.<br>
-l'une en version standard avec un vision à 75 degrès,<br>
-l'autre en version grand angle de 120 degrès<br>
+l'une en version standard avec un vision à 75 degrés,<br>
+l'autre en version grand angle de 120 degrés<br>
 
 ```bash
 $ rpicam-hello --list-camera

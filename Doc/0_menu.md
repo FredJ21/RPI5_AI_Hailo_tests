@@ -1,6 +1,7 @@
-# Créer et entrainer son propre IA pour les modules HAILO du Raspberry PI5
+# Créer et entraîner son propre IA pour les modules HAILO du Raspberry PI5
 
 
+<img src="img/en_construction.webp" width="100%">
 
 Je vous propose mon retour d’expérience sur la mise en œuvre d'une intelligence artificiel, sur une carte Raspberry PI5, capable de reconnaître et différentier un ensemble d'objets personnels.
 
