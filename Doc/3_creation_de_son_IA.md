@@ -113,13 +113,15 @@ J'ai donc réduit la voilure avec Dataset est composé de 2 classes  :  "carré 
 
 
 Les fichiers sources, de mon derniers tests, son disponibles dans mon repo GitHub :
+https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
-```
-	https://github.com/FredJ21/RPI5_AI_Hailo_tests
-	
-	$ git clone https://github.com/FredJ21/RPI5_AI_Hailo_tests
-	$ cd RPI5_AI_Hailo_tests
-	$ ls -al Dataset/Fred_Dataset/images_HD_2
+
+```bash
+git clone https://github.com/FredJ21/RPI5_AI_Hailo_tests
+cd RPI5_AI_Hailo_tests
+
+ls -al Dataset/Fred_Dataset/images_HD_2
+
 ```
 
 ----
@@ -152,7 +154,8 @@ en premant une photo toutes les 2 secondes et en répartissant les clichés des 
 Le nom des fichiers correspond à un horodatage de type timestamp. 
 
 ```bash
-$ ls -al Dataset/Fred_Dataset/images_HD_2/test/*jpg
+ls -al Dataset/Fred_Dataset/images_HD_2/test/*jpg
+
 -rw-r--r-- 1 pi pi 2994083 15 déc.  00:47 Dataset/Fred_Dataset/images_HD_2/test/1734220016.jpg
 -rw-r--r-- 1 pi pi 3009538 15 déc.  00:47 Dataset/Fred_Dataset/images_HD_2/test/1734220032.jpg
 -rw-r--r-- 1 pi pi 3367522 15 déc.  00:47 Dataset/Fred_Dataset/images_HD_2/test/1734220038.jpg
@@ -254,25 +257,25 @@ Plusieurs solutions permettent d'augmenter le nombre de photos :
 J'ai dévoloppé un script Python pour réaliser cela  :
 
 ```bash 
-	$ cd RPI5_AI_Hailo_tests/Scripts/
-	
-	$ python3 -m venv --system-site-packages venv
-	$ source venv/bin/activate
-	$ pip install -r requirements.txt
+cd RPI5_AI_Hailo_tests/Scripts/
 
-	$ cd bin
+python3 -m venv --system-site-packages venv
+source venv/bin/activate
+pip install -r requirements.txt
 
-	$ cat dataset_HD_to_640x640.conf
+cd bin
 
-		{
-    		"REP_IN"  : "../../Dataset/Fred_Dataset/images_HD_2",
-    		"REP_OUT" : "/home/pi/My_Dataset/",
-    		"IMG_FILE_EXT"   : ".jpg",
-    		"LABEL_FILE_EXT" : ".txt",
-    		"Nb_Iteration_par_image" : 15,
-    		"Add_Noise" : 1,
-    		"Retournement" : 3
-		}
+cat dataset_HD_to_640x640.conf
+
+	{
+		"REP_IN"  : "../../Dataset/Fred_Dataset/images_HD_2",
+		"REP_OUT" : "/home/pi/My_Dataset/",
+		"IMG_FILE_EXT"   : ".jpg",
+		"LABEL_FILE_EXT" : ".txt",
+		"Nb_Iteration_par_image" : 15,
+		"Add_Noise" : 1,
+		"Retournement" : 3
+	}
 ```
 
 Le fichier de configuration défini les répertoires source et destination, le nombre de bruit, le nombre de retournent d'image<br>
@@ -284,7 +287,7 @@ Le répertoire cibe (REP_OUT) n'est pas obligé d'exister, le script se chargera
 
 ```bash 
 
-	$ python dataset_HD_to_640x640.py
+python dataset_HD_to_640x640.py
 
 ```
 
@@ -298,7 +301,7 @@ cd qui donne un total de 25200 photos accompagnées de leurs annotations !<br>
 en effet : 
 
 ```bash
-	$ find /home/pi/My_Dataset -name *jpg | wc -l
+find /home/pi/My_Dataset -name *jpg | wc -l
 
 	25200
 ```
@@ -351,12 +354,12 @@ Nous pouvons bien évidement ajuster les parametres d'autofocus et autres ...
 Ces vidéos de départ sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.sources* du dépo Git :
 
 ```bash
-	$ ls -al Dataset/210125_4_shapes_TEST.sources/
-		total 19516
-		-rw-rw-r-- 1 fredj21 fredj21 4881188 janv. 29 13:37 hexagon.mp4
-		-rw-rw-r-- 1 fredj21 fredj21 4985373 janv. 29 13:37 round.mp4
-		-rw-rw-r-- 1 fredj21 fredj21 4848499 janv. 29 13:37 square.mp4
-		-rw-rw-r-- 1 fredj21 fredj21 5261945 janv. 29 13:37 triange.mp4
+ls -al Dataset/210125_4_shapes_TEST.sources/
+
+	-rw-rw-r-- 1 fredj21 fredj21 4881188 janv. 29 13:37 hexagon.mp4
+	-rw-rw-r-- 1 fredj21 fredj21 4985373 janv. 29 13:37 round.mp4
+	-rw-rw-r-- 1 fredj21 fredj21 4848499 janv. 29 13:37 square.mp4
+	-rw-rw-r-- 1 fredj21 fredj21 5261945 janv. 29 13:37 triange.mp4
 ```
 
 Direction donc  --> http://www.roboflow.com/  
@@ -452,28 +455,28 @@ Nous pouvons maintenant télécharger notre Dataset dans de nombreux formats<br>
 l'ensemble des fichiers sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépo Git :
 
 ```bash
-	$ ls -l Dataset/210125_4_shapes_TEST.v2i.yolov8
+ls -l Dataset/210125_4_shapes_TEST.v2i.yolov8
 
-		-rw-rw-r-- 1 fredj21 fredj21  299 févr.  2 08:08 data.yaml
-		-rw-rw-r-- 1 fredj21 fredj21  150 févr.  2 08:08 README.dataset.txt
-		-rw-rw-r-- 1 fredj21 fredj21 1190 févr.  2 08:08 README.roboflow.txt
-		drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 test
-		drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 train
-		drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 valid
+	-rw-rw-r-- 1 fredj21 fredj21  299 févr.  2 08:08 data.yaml
+	-rw-rw-r-- 1 fredj21 fredj21  150 févr.  2 08:08 README.dataset.txt
+	-rw-rw-r-- 1 fredj21 fredj21 1190 févr.  2 08:08 README.roboflow.txt
+	drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 test
+	drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 train
+	drwxrwxr-x 4 fredj21 fredj21 4096 févr.  2 08:08 valid
 
 
-	$ tree Dataset/210125_4_shapes_TEST.v2i.yolov8 -d
+tree Dataset/210125_4_shapes_TEST.v2i.yolov8 -d
 
-		Dataset/210125_4_shapes_TEST.v2i.yolov8
-		├── test
-		│   ├── images
-		│   └── labels
-		├── train
-		│   ├── images
-		│   └── labels
-		└── valid
-			├── images
-			└── labels
+	Dataset/210125_4_shapes_TEST.v2i.yolov8
+	├── test
+	│   ├── images
+	│   └── labels
+	├── train
+	│   ├── images
+	│   └── labels
+	└── valid
+		├── images
+		└── labels
 ```
 
 ### Prêt à coder !!! 
@@ -482,7 +485,9 @@ Robotflow propose également, dans la section "Download", plusieurs méthodes d'
 et plus particulièrement une librairie Python pour automatiser le téléchargement de son Dataset<br>
 
 ```bash
-	!pip install roboflow
+pip install roboflow
+
+python
 
 	from roboflow import Roboflow
 	rf = Roboflow(api_key="xxxxxxxxxxxxxxxxxxx")
@@ -508,16 +513,187 @@ il est fortement recommendé d'utiliser un PC puissant équipé d'une bonne gros
 
 Cette solution est techniquement très interressante et surtout très chronophage car elle nécessite pas mal de configuration sous linux pour installer l'ensemble des outils et leurs dépendances !<br>
 
-MAIS, fort heureusement **HAILO propose des environnements pré-configurés sous forme de conteneur Docker**<br>  
+MAIS, fort heureusement **HAILO propose des environnements pré-configurés sous forme de conteneur Docker**<br>
+L'environnement Docker s'installe et s'utilise en quelques lignes :
 
 
-eeeee 
+```bash 
+git clone https://github.com/hailo-ai/hailo_model_zoo.git
+cd hailo_model_zoo/training/yolov8
+
+docker build --build-arg timezone=`cat /etc/timezone` -t yolov8:v0 .
+
+docker run --name "yolov8" -it --gpus all --ipc=host -v  /data_1:/data  yolov8:v0
+```
+
+## Dans le DOCKER YOLOv8
+
+Nous voila dans le conteneur Docker Yolo8 !!!<br>
+A noter que le repertoire ***/data*** du conteneur **est mappé** avec le répertoire ***/data_1*** de la machine linux hote<br>
+--> cela permetra d'extraire les résultas des traitements 
 
 
+Nous pouvons dans, un premier temps, vérifier détection correcte de la carte vidéo et des drivers CUDA
+
+```bash 
+$ nvidia-smi 
+
+Sun Feb  2 15:08:44 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.120                Driver Version: 550.120        CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 4070 ...    Off |   00000000:01:00.0  On |                  N/A |
+|  0%   42C    P2             41W /  285W |     418MiB /  16376MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
++-----------------------------------------------------------------------------------------+
+```
+
+Ensuite , nous allons créer 2 répertoires 
+* l'un pour le Dataset
+* l'autre pour le résultat des trailements Yolo
+
+```bash
+mkdir /data/my_dataset
+mkdir /data/my_yolo8s
+```
+
+### Récupération (téléchargement) de notre Dataset
+
+Comme nous l'avons vu plus haut, il existe plusieurs méthodes pour retrouver son Dataset précédement créé sur Robotflow<br>
+Une des plus simple est la commande "curl"  :
+
+```bash
+apt install curl unzip
+
+cd /data/my_dataset
+curl -L "https://app.roboflow.com/ds/MtF5ewIPDd?key=DtuQjJYrBl" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
 
 
+root@50b81f5f3e9f:/data/my_dataset# ls -l 
+
+	-rw-r--r-- 1 root root  150 Jan 24 13:16 README.dataset.txt
+	-rw-r--r-- 1 root root 1190 Jan 24 13:16 README.roboflow.txt
+	-rw-r--r-- 1 root root  299 Jan 24 13:16 data.yaml
+	drwxr-xr-x 4 root root 4096 Jan 24 13:16 test
+	drwxr-xr-x 4 root root 4096 Jan 24 13:16 train
+	drwxr-xr-x 4 root root 4096 Jan 24 13:16 valid
+
+```
+
+### YOLO - Entrainement 
+
+**VOILA !!! Nous y sommes !!!**   ... nous allons maintenant le traintement d'aprenntissage de notre IA 
+
+```bash
+cd /data/my_yolo8s
+
+yolo task=detect mode=train model=yolov8s.pt data=/data/my_dataset/data.yaml  epochs=100 batch=8 
+```
+
+<img src="photos/yolo_1.png" width="100%">
+
+... et après un certain temps, parfois plusieurs heures .....  ( ici, un peu mois d'une heure)<br>
+Notre IA est là, le réseau de neurones que nous allons exploiter est dans fichier **best.pt**  
 
 
+```bash
+root@50b81f5f3e9f:/data/my_yolo8s# ls -l /workspace/ultralytics/runs/detect/train/weights/
+total 43968
+-rw-r--r-- 1 root root 22510584 Feb  2 15:52 best.pt
+-rw-r--r-- 1 root root 22510584 Feb  2 15:52 last.pt
+```
+
+### YOLO - Validation  
+
+```bash 
+	yolo task=detect mode=val model=/workspace/ultralytics/runs/detect/train/weights/best.pt data=/data/my_dataset/data.yaml
+```
+*résultat :*
+```bash
+	Ultralytics YOLOv8.0.55 🚀 Python-3.8.5 torch-2.0.0+cu117 CUDA:0 (NVIDIA GeForce RTX 4070 Ti SUPER, 16069MiB)
+	Model summary (fused): 168 layers, 11127132 parameters, 0 gradients, 28.4 GFLOPs
+	val: Scanning /data/my_dataset/valid/labels.cache... 80 images, 0 backgrounds, 0 corrupt: 100%|██████████| 80/80 [00:00<?, ?it/s]
+					Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 5/5 [00:01<00:00,  3.80it/s]
+					all         80         80      0.978       0.98      0.989      0.921
+				hexagon         80         21      0.979      0.952       0.99      0.916
+					round         80         19      0.939          1      0.974      0.901
+					square         80         20          1      0.967      0.995      0.965
+				triangle         80         20      0.994          1      0.995      0.899
+	Speed: 1.8ms preprocess, 2.8ms inference, 0.0ms loss, 0.9ms postprocess per image
+	Results saved to /workspace/ultralytics/runs/detect/val
+```
+
+### YOLO - Test d'Inference
+
+yolo task=detect mode=predict model=/workspace/ultralytics/runs/detect/train/weights/best.pt conf=0.25 source=/data/my_dataset/test/images save=True
+
+*résultat :*
+
+```bash 
+Ultralytics YOLOv8.0.55 🚀 Python-3.8.5 torch-2.0.0+cu117 CUDA:0 (NVIDIA GeForce RTX 4070 Ti SUPER, 16069MiB)
+Model summary (fused): 168 layers, 11127132 parameters, 0 gradients, 28.4 GFLOPs
+
+image 1/40 /data/my_dataset/test/images/hexagon_mp4-0003_jpg.rf.c293d0bda8579255c22e0bb3adec7517.jpg: 640x640 1 hexagon, 6.0ms
+image 2/40 /data/my_dataset/test/images/hexagon_mp4-0004_jpg.rf.cc7bd017125af4dbd404019b3770f394.jpg: 640x640 1 hexagon, 4.6ms
+image 3/40 /data/my_dataset/test/images/hexagon_mp4-0008_jpg.rf.4fd6e77433c04562e72f935866ce0f6f.jpg: 640x640 1 hexagon, 4.5ms
+image 4/40 /data/my_dataset/test/images/hexagon_mp4-0019_jpg.rf.7d1cf963c7a1ec1475e9835eb22823fe.jpg: 640x640 1 hexagon, 4.4ms
+../..
+image 18/40 /data/my_dataset/test/images/round_mp4-0072_jpg.rf.a7b124ffd4ac510cb800640b2662692c.jpg: 640x640 1 round, 5.2ms
+image 19/40 /data/my_dataset/test/images/round_mp4-0073_jpg.rf.17cc51715ce2f318fbe54c4cf027eb25.jpg: 640x640 1 round, 4.4ms
+image 20/40 /data/my_dataset/test/images/round_mp4-0079_jpg.rf.726d39195525a9379b7a0d027cc95fa2.jpg: 640x640 1 round, 5.3ms
+image 21/40 /data/my_dataset/test/images/square_mp4-0008_jpg.rf.2de6b97777c35ad77243686b52db8fdd.jpg: 640x640 1 square, 4.3ms
+image 22/40 /data/my_dataset/test/images/square_mp4-0031_jpg.rf.51e2987542775d7b404283d2555c1e89.jpg: 640x640 1 square, 4.4ms
+../..
+image 38/40 /data/my_dataset/test/images/triange_mp4-0093_jpg.rf.a5e21f5433c42886dfa68207bf33bcf4.jpg: 640x640 1 triangle, 4.3ms
+image 39/40 /data/my_dataset/test/images/triange_mp4-0094_jpg.rf.ca41d949218064b2667407a288294d54.jpg: 640x640 1 triangle, 4.5ms
+image 40/40 /data/my_dataset/test/images/triange_mp4-0097_jpg.rf.42740df0f5c5443d917efcfb888b12b6.jpg: 640x640 1 triangle, 4.4ms
+Speed: 0.4ms preprocess, 4.9ms inference, 1.3ms postprocess per image at shape (1, 3, 640, 640)
+Results saved to /workspace/ultralytics/runs/detect/predict
+
+```
+
+### YOLO - Export du modèle au formant ONNX
+
+```bash 
+yolo export model=/workspace/ultralytics/runs/detect/train/weights/best.pt imgsz=640 format=onnx opset=11
+```
+
+*résultat :*
+
+```bash 
+	ONNX: export success ✅ 0.7s, saved as /workspace/ultralytics/runs/detect/train/weights/best.onnx (42.7 MB)
+```
 
 
+### YOLO - Sauvegarde 
 
+Il est temps maintenant, de copier tous ces résultats en dehors du conteneur Docker dans lequel nous sommes :
+
+```bash
+cp -rv /workspace/ultralytics/runs/detect/* /data/my_yolo8s 
+
+ls -l /data/my_yolo8s 
+
+	drwxr-xr-x 2 root root     4096 Feb  2 16:26 predict
+	drwxr-xr-x 3 root root     4096 Feb  2 16:26 train
+	drwxr-xr-x 2 root root     4096 Feb  2 16:26 val
+	-rw------- 1 root root  6534387 Feb  2 15:23 yolov8n.pt
+	-rw------- 1 root root 22573363 Feb  2 15:23 yolov8s.pt
+```
+
+Nous pouvons mantenant sortir de notre conteneur Docker 
+
+```bash
+exit
+```

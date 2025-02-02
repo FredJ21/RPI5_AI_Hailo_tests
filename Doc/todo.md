@@ -91,6 +91,26 @@ Le plus simple est de faire sous linux
 
 	
 	$ unzip hailo_ai_sw_suite_2025-01_docker.zip
+
+
+
+Modification du script 
+	
+	ligne 226
+        -v $(pwd)/${SHARED_DIR}/:/local/${SHARED_DIR}:rw \
+		-v /data_1/:/local/${SHARED_DIR}:rw \
+
+	ligne 352 
+		# create_shared_dir
+
+
+
+```bash
+
+
+
+
+
 	$ ./hailo_ai_sw_suite_docker_run.sh
 	
 	
@@ -180,6 +200,11 @@ Loaded image: hailo_ai_sw_suite_2025-01:1
 	
 	
 	$ hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8 --calib-path test/images/ --classes 4 --performance
+
+
+	cd /local/shared_with_docker/
+	hailomz compile yolov8s --ckpt=my_yolo8s/train/weights/best.onnx --hw-arch hailo8 --calib-path my_dataset/test/images/ --classes 4 --performance
+
 
 
 	TODO : 

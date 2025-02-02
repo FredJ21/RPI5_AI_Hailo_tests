@@ -41,6 +41,6 @@ Ou plus exactement, l'IA sera capable d'effectuer une prédiction de reconnaissa
 
 
 
-4. Conclusion
+4. Conclusionnnn
 
 ---
