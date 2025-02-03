@@ -4,7 +4,8 @@
 Après notre petite introduction en partie 1 et la configuration du Raspberry PI en parti 2,<br>
 Il est temps de rentrer dans le vif du sujet  !!!<br>
 
-# Partie 3 -"Créer et entraîner son propre IA pour les modules HAILO du Raspberry PI5"
+### Partie 3 
+# Créer et entraîner son propre IA pour le module HAILO du Raspberry PI5
 
 L'objectif est donc de :
 
@@ -15,15 +16,15 @@ L'objectif est donc de :
 
 Nous pouvons distinguer 4 grandes étapes décrites plus bas : 
 
-1. --> la création de son jeu de données, de son dataset
-2. --> l’entraînement du modèle IA
-3. --> la conversion, ou compilation, du modèle
-4. --> le déploiement et les tests    
+1. [la création de son jeu de données : le dataset]()
+2. [l’entraînement du modèle IA avec YOLOv8]()
+3. [la conversion, ou compilation, du modèle pour le module HAILO]()
+4. [le déploiement et les tests sur le Raspberry PI]()
 
 
 
 _Archive du projet :_<br>
-où l'on peut retrouver les images et vidéos sources, ainsi que quelques scripts<br>
+Vous pouvez retrouver les images et vidéos sources, ainsi que certains résultats des test et quelques scripts sur dépôt GitHub suivant :<br>
 https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
 
@@ -144,10 +145,10 @@ rpicam-jpeg  --camera ${CAMERA} --output ${FILE} --timeout ${TIMEOUT} --autofocu
 ```
 Cela produit une image haute définition de 4608x2592 pixels et d'environ 3,3 Mo.
 
-<a href="photos/1734219226.jpg"><img src="photos/1734219226.jpg" width="49%"></a>
-<a href="photos/1734220832.jpg"><img src="photos/1734220832.jpg" width="49%"></a>
-<a href="photos/1734220572.jpg"><img src="photos/1734220572.jpg" width="49%"></a>
-<a href="photos/1734219623.jpg"><img src="photos/1734219623.jpg" width="49%"></a>
+<a href="img/1734219226.jpg"><img src="img/1734219226.jpg" width="49%"></a>
+<a href="img/1734220832.jpg"><img src="img/1734220832.jpg" width="49%"></a>
+<a href="img/1734220572.jpg"><img src="img/1734220572.jpg" width="49%"></a>
+<a href="img/1734219623.jpg"><img src="img/1734219623.jpg" width="49%"></a>
 
 Le script **"prendre_une_photo.sh"** ( dans le répertoire [GIT]Scripts/bin ) permet d'automatiser la séance !<br>
 en prenant une photo toutes les 2 secondes et en répartissant les clichés des les répertoires : train, valid, et test.<br>
@@ -202,8 +203,8 @@ L'utilisation est très simple et doit être réalisé sur l'ensemble des photos
 - on dessine en carré pour délimiter notre pièce 
 - next ... 
 
-<img src="photos/Capture_YoloLabel_1.png" width="49%"></a>
-<img src="photos/Capture_YoloLabel_2.png" width="49%"></a>
+<img src="img/Capture_YoloLabel_1.png" width="49%"></a>
+<img src="img/Capture_YoloLabel_2.png" width="49%"></a>
 
 Tous les fichiers jpeg sont maintenant accompagnés par un fichier text du même nom mais avec l’extension .txt .   
 
@@ -305,7 +306,7 @@ find /home/pi/My_Dataset -name *jpg | wc -l
 
 	25200
 ```
-<img src="photos/Capture_YoloLabel_4.png" ></a>
+<img src="img/Capture_YoloLabel_4.png" ></a>
 
 Notre Dataset en prêt à être utilisé pour l'aprentissage  !!! 
 
@@ -369,7 +370,7 @@ Direction donc  --> http://www.roboflow.com/
 Après s'être identifié,<br>
 on crée un nouveau projet **public** de type "Object Detection" avec le mon des déférentes classes
 
-<img src="photos/robotflow_1.png" width="70%"></a>
+<img src="img/robotflow_1.png" width="70%"></a>
 
 Ensuite, nous ajoutons les classes à notre projet 
 
@@ -378,31 +379,31 @@ Ensuite, nous ajoutons les classes à notre projet
 * triangle, 
 * hexagon
 
-<img src="photos/robotflow_2.png" width="70%"></a>
+<img src="img/robotflow_2.png" width="70%"></a>
 
 
 Maintenant, dans la section "Upload Data", nous importons chaque vidéo, l'une après l'autre<br>
 avec une fréquence d’échantillonnage de **5 images par seconde** (choix arbitraire à adapter à ses besoins) <br> 
 
-<img src="photos/robotflow_3.png" width="45%">  <img src="photos/robotflow_4.png" width="45%">
+<img src="img/robotflow_3.png" width="45%">  <img src="img/robotflow_4.png" width="45%">
 
 On crée des tache de type  **"Manual Labeling"**,  que l'on assigne à soi même.<br>
 
 En effet, la plateforme est collaborative, et permet d'assigner des taches à différentes personnes<br>
 Dans la section "Annotate", nous pouvons visualiser les différentes taches restants, la personne en charge de cette tache, le taux de réalisation    
 
-<img src="photos/robotflow_5.png" width="80%"><br>
+<img src="img/robotflow_5.png" width="80%"><br>
 
 
 Pas de difficulté lors du labeling, il faut juste veiller à sélectionner la bonne classe ....  et avoir un peu de patience !!! <br>
 
-<img src="photos/robotflow_annotate_1.png" width="45%"> <img src="photos/robotflow_annotate_2.png" width="45%">
-<img src="photos/robotflow_annotate_3.png" width="45%"> <img src="photos/robotflow_annotate_4.png" width="45%">
+<img src="img/robotflow_annotate_1.png" width="45%"> <img src="img/robotflow_annotate_2.png" width="45%">
+<img src="img/robotflow_annotate_3.png" width="45%"> <img src="img/robotflow_annotate_4.png" width="45%">
 
 
 Après avoir annoter l'ensemble des images, nous allons ajouter ces images à notre Dataset en utilisant la méthode *"Split Images Between Train/Valid/Test"* qui permettra de répartir aléatoirement nos photos pour les besoins de trainning, validation et test.
 
-<img src="photos/robotflow_10.png" width="80%"><br>
+<img src="img/robotflow_10.png" width="80%"><br>
 
 
 Enfin, il nous reste à générer une nouvelle version de notre Dataset en appliquant des opérations de **rotation**, ajout de **bruit**, passage de certaines photos en **niveau de gris**, .... <br>
@@ -411,7 +412,7 @@ Dans la section "Dataset" --> "Generate Version"
 
 Le but étant, ici, d'augmenter artificiellement le nombre de photos de notre Dataset<br>
 
-<img src="photos/robotflow_11.png" width="40%"><br>
+<img src="img/robotflow_11.png" width="40%"><br>
 
 
 ### Pour résumer cette création de son jeu de données sur Roboflow:
@@ -452,7 +453,7 @@ Nous pouvons maintenant télécharger notre Dataset dans de nombreux formats<br>
 --> particulièrement au format **YOLOv8** pour la suite de notre projet ! <br>
 
 
-<img src="photos/robotflow_12.png" width="40%"><br>
+<img src="img/robotflow_12.png" width="40%"><br>
 
 
 l'ensemble des fichiers se trouve dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépo Git :
@@ -604,7 +605,7 @@ cd /data/my_yolo8s
 yolo task=detect mode=train model=yolov8s.pt data=/data/my_dataset/data.yaml  epochs=100 batch=8 
 ```
 
-<img src="photos/yolo_1.png" width="100%">
+<img src="img/yolo_1.png" width="100%">
 
 ... et après un certain temps, parfois plusieurs heures .....  ( ici, un peu mois d'une heure)<br>
 Notre IA est là, le réseau de neurones que nous allons exploiter est dans fichier **best.pt**  
