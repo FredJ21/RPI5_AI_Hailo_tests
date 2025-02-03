@@ -96,7 +96,7 @@ Nous pourrions donc installer 12 modules Hailo-8L au format M2 !!! <br>
 
 https://youtu.be/oFNKfMCGiqE
 
-🤔 Mais puisque nous disposons d'un bus PCIe x4, il serait donc possible de plugger directement une carte graphique (GPU) type RTX xxxx sur le Hat uPCIty Lite  ... !!!<br>  
+🤔 Mais puisque nous disposons d'un bus PCIe x4, il serait donc possible de plugger directement une carte graphique (GPU) type GTXxxxx sur le Hat uPCIty Lite  ... !!!<br>  
 **Ok ! cette solution reste plutôt expérimentale ...!!**<br>
 
 

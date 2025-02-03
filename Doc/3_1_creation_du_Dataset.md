@@ -1,10 +1,8 @@
 
-<img src="img/en_construction.webp" width="100%">
-
 Après notre petite introduction en partie 1 et la configuration du Raspberry PI en parti 2,<br>
 Il est temps de rentrer dans le vif du sujet  !!!<br>
 
-### Partie 3 
+### Partie 3.1 
 # Créer et entraîner son propre IA pour le module HAILO du Raspberry PI5
 
 L'objectif est donc de :
@@ -46,7 +44,7 @@ Je vais donc décrire ces deux approches.
 La création du dataset consiste à créer une collection d'images représentatives des objets que l'on souhaite détecter.<br> 
 Ces images devront être annotés avec l'emplacement et le nom de l'objet visible.<br>
 
-#### Mais il y a quelques éléments à prendre en considération :
+### Mais il y a quelques éléments à prendre en considération :
 
 * le format du dataset : YOLOv8
 
@@ -54,10 +52,10 @@ YOLOv8 (You Only Look Once v8) est une version avancée de la célèbre famille 
 utilisée pour la détection d’objets, la segmentation d’images et la classification. 
 
 YOLOv8 est principalement un modèle d'IA de détection d'objets qui utilise un format spécifique pour les datasets.<br>
-Ce modèle d'IA est particulièrement adapté et préconiser pour le module HAILO du Raspberry PI.
+Ce modèle d'IA est particulièrement adapté et préconisé pour le module HAILO du Raspberry PI.
 
 
-#### Autres éléments importants :
+### Autres éléments importants :
 
 - YOLOv8, comme ses prédécesseurs, fonctionne mieux avec des images carrées.
 - les images doivent avoir une dimension de 640x640 pixels (par défaut pour YOLOv8) 
@@ -107,7 +105,7 @@ Nous pourrions également envisager un répartition de 70/20/10 , ou 75/15/10 ..
 ## 3.1.1 Création du Dataset en local 
 
 J'ai réalisé de nombreux tests de création de dataset, avec 12 objets différents (12 classes),
-différents fonds, plusieurs type d'éclairage ...  mais ça commençait à se compliquer un peu ... 
+différents fonds, plusieurs types d'éclairage ...  mais ça commençait à se compliquer un peu ... 
 surtout quand le résultat attendu n'était pas vraiment au rendez vous .... 
 
 J'ai donc réduit la voilure avec Dataset est composé de 2 classes  :  "carré vert"  & "carré rouge"<br>
@@ -127,9 +125,9 @@ ls -al Dataset/Fred_Dataset/images_HD_2
 
 ----
 
-#### Les photos :
+### Les photos :
 
-J'ai donc fait plein de photos de mes pièces en vaillant, bien évidement, à réaliser autant de photos pour chacune d'entre elle : 
+J'ai donc fait plein de photos de mes pièces en veillant, bien évidemment, à réaliser autant de photos pour chacune d'entre elle : 
 
 - 75 photos pour le trainning  dans le répertoire *"train"* (*)
 - 15 photos pour la validation dans le répertoire *"valid"* (*)
@@ -137,7 +135,7 @@ J'ai donc fait plein de photos de mes pièces en vaillant, bien évidement, à r
 
 **( pour chaque classe d'objet !!! )*
 
-Pour réaliser ces photos, c'est très simple !  il suffit d'utiliser la camera du Raspberry PI ! <br>
+Pour réaliser ces photos, c'est très simple !  il suffit d'utiliser la caméra du Raspberry PI ! <br>
 Avec la commande suivante : 
 
 ```bash
@@ -167,7 +165,7 @@ ls -al Dataset/Fred_Dataset/images_HD_2/test/*jpg
 
 ----
 
-#### Les labels :
+### Les labels :
 
 Il est temps maintenant d'annoter les images.<br>
 
@@ -176,7 +174,7 @@ Cette opération d'étiquetage consiste à dessiner un cadre de délimitation au
 Cette opération nécessite une certaine précision et un peu de patience !!!<br>
 Le cadres doit être serré mais pas trop proche.<br>
 Il ne doit pas y avoir de sur ajustement dans le cas ou plusieurs objets sont présents sur la même photo.<br>
-*( mais par soucis de simplification, mes images ne comportent q'un seul objet )*
+*( mais par soucis de simplification, mes images ne comportent qu'un seul objet )*
 
 Dans mon cas, j'ai choisi de réaliser des photos distinctes par type d'objet. J'ai donc qu'un seul objet par photo. 
 
@@ -199,14 +197,14 @@ chmod +x YoloLabel
 L'utilisation est très simple et doit être réalisé sur l'ensemble des photos de DataSet.<br>
 - on sélectionne le répertoire de travail qui contient les images
 - on sélectionne la liste des classes ( *labels_list.txt* )
-- on choisi une classe 
+- on choisit une classe 
 - on dessine en carré pour délimiter notre pièce 
 - next ... 
 
 <img src="img/Capture_YoloLabel_1.png" width="49%"></a>
 <img src="img/Capture_YoloLabel_2.png" width="49%"></a>
 
-Tous les fichiers jpeg sont maintenant accompagnés par un fichier text du même nom mais avec l’extension .txt .   
+Tous les fichiers jpeg sont maintenant accompagnés par un fichier texte du même nom mais avec l’extension .txt .   
 
 	1734219226.jpg	-->  1734219226.txt
 	1734220832.jpg  -->  1734220832.txt
@@ -248,7 +246,7 @@ En effet l'entraînement de l'IA sur un plus grand nombre de photos permettra d'
 
 Plusieurs solutions permettent d'augmenter le nombre de photos : 
 
-* **recadrer** l'image par rapport à l'objet en positionnant l'objet plus ou mois sur la droite ou plus ou mois sur la gauche <br>
+* **recadrer** l'image par rapport à l'objet en positionnant l'objet plus ou moins sur la droite ou plus ou moins sur la gauche <br>
 --> cette opération permet de passer d'un format de 4608x2592 pixels  à un format carré de 640x640 pixels
 * réaliser une ou plusieurs **rotation** d'image
 * ajouter artificiellement du **bruit** ( des points blancs ou noirs )
@@ -279,11 +277,11 @@ cat dataset_HD_to_640x640.conf
 	}
 ```
 
-Le fichier de configuration défini les répertoires source et destination, le nombre de bruit, le nombre de retournent d'image<br>
+Le fichier de configuration défini les répertoires source et destination, le nombre de bruit, le nombre de retournement d'image<br>
 Le script se chargera également de recalculer la nouvelle position, en x et y, de l'objet et ses dimensions afin de produire un nouveau fichier label.<br>    
 Le répertoire cible (REP_OUT) n'est pas obligé d'exister, le script se chargera de créer toute l’arborescence de répertoires.
 
-*GO !!!* 
+## *GO !!!* 
 
 
 ```bash 
@@ -292,7 +290,7 @@ python dataset_HD_to_640x640.py
 
 ```
 
-Puisque nous avons réalisé 15 itérations, pour lesquels nous avons une version avec et sans bruit, et 3 retournents en plus de la position de départ    
+Puisque nous avons réalisé 15 itérations, pour lesquels nous avons une version avec et sans bruit, et 3 retournements en plus de la position de départ    
 
 - 150 * 15 * 2 * 4 --> 18000 photos le répertoire *"train"* 
 - 30 * 15 * 2 * 4 --> 3600 photos dans le répertoire *"valid"* 
@@ -308,7 +306,9 @@ find /home/pi/My_Dataset -name *jpg | wc -l
 ```
 <img src="img/Capture_YoloLabel_4.png" ></a>
 
-Notre Dataset en prêt à être utilisé pour l'aprentissage  !!! 
+### **Notre Dataset est prêt à être utilisé pour l'apprentissage  !!!**
+
+... mais il est également possible de créer son jeu de données en ligue, dans le cloud 
 
 ---
 
@@ -350,9 +350,9 @@ Avec la commande suivante :
 	rpicam-vid --camera 0 -t20000 --autofocus-range normal --autofocus-speed fast -o square.mp4
 ```
 
-Nous pouvons bien évidement ajuster les parametres d'autofocus et autres ... 
+Nous pouvons bien évidemment ajuster les paramètres d'autofocus et autres ... 
 
-Ces vidéos de départ sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.sources* du dépo Git :
+Ces vidéos de départ sont dans le répertoire :  *Dataset/210125_4_shapes_TEST.sources* du dépôt Git :
 
 ```bash
 ls -al Dataset/210125_4_shapes_TEST.sources/
@@ -368,7 +368,7 @@ ls -al Dataset/210125_4_shapes_TEST.sources/
 Direction donc  --> http://www.roboflow.com/  
 
 Après s'être identifié,<br>
-on crée un nouveau projet **public** de type "Object Detection" avec le mon des déférentes classes
+on crée un nouveau projet **public** de type "Object Detection" avec le nom des différentes classes
 
 <img src="img/robotflow_1.png" width="70%"></a>
 
@@ -387,10 +387,10 @@ avec une fréquence d’échantillonnage de **5 images par seconde** (choix arbi
 
 <img src="img/robotflow_3.png" width="45%">  <img src="img/robotflow_4.png" width="45%">
 
-On crée des tache de type  **"Manual Labeling"**,  que l'on assigne à soi même.<br>
+On crée des tâches de type  **"Manual Labeling"**,  que l'on assigne à soi même.<br>
 
 En effet, la plateforme est collaborative, et permet d'assigner des taches à différentes personnes<br>
-Dans la section "Annotate", nous pouvons visualiser les différentes taches restants, la personne en charge de cette tache, le taux de réalisation    
+Dans la section "Annotate", nous pouvons visualiser les différentes taches restants, la personne en charge de cette tâche, le taux de réalisation    
 
 <img src="img/robotflow_5.png" width="80%"><br>
 
@@ -456,7 +456,7 @@ Nous pouvons maintenant télécharger notre Dataset dans de nombreux formats<br>
 <img src="img/robotflow_12.png" width="40%"><br>
 
 
-l'ensemble des fichiers se trouve dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépo Git :
+l'ensemble des fichiers se trouve dans le répertoire :  *Dataset/210125_4_shapes_TEST.v2i.yolov8/* du dépôt Git :
 
 ```bash
 ls -l Dataset/210125_4_shapes_TEST.v2i.yolov8
@@ -500,219 +500,4 @@ python
 	dataset = version.download("yolov8")
 ```
 
-# 3.2 - Entraînement du modèle IA
-
-2 solutions :  
-
-* entraîner le modèle en local, sous linux
-* ou sur Google Colab
-
-###  Entrainement du modèle sous linux
-
-il ne sera pas possible de réaliser cette étape directement sur un Rasperry PI 
-
-En effet, l'entrainement de l'IA necessite beaucoup de calculs et donc de ressources (memoire/cpu/gpu),<br>
-il est fortement recommendé d'utiliser un PC puissant équipé d'une bonne grosse carte GPU 
-
-
-Cette solution est techniquement très interressante et surtout très chronophage car elle nécessite pas mal de configuration sous linux pour installer l'ensemble des outils et leurs dépendances !<br>
-
-MAIS, fort heureusement **HAILO propose des environnements pré-configurés sous forme de conteneur Docker**<br>
-L'environnement Docker s'installe et s'utilise en quelques lignes :
-
-
-```bash 
-git clone https://github.com/hailo-ai/hailo_model_zoo.git
-cd hailo_model_zoo/training/yolov8
-
-docker build --build-arg timezone=`cat /etc/timezone` -t yolov8:v0 .
-
-docker run --name "yolov8" -it --gpus all --ipc=host -v  /data_1:/data  yolov8:v0
-```
-
-## Dans le DOCKER YOLOv8
-
-Nous voila dans le conteneur Docker Yolo8 !!!<br>
-A noter que le repertoire ***/data*** du conteneur **est mappé** avec le répertoire ***/data_1*** de la machine linux hote<br>
---> cela permetra d'extraire les résultas des traitements 
-
-
-Nous pouvons dans, un premier temps, vérifier détection correcte de la carte vidéo et des drivers CUDA
-
-```bash 
-$ nvidia-smi 
-
-Sun Feb  2 15:08:44 2025       
-+-----------------------------------------------------------------------------------------+
-| NVIDIA-SMI 550.120                Driver Version: 550.120        CUDA Version: 12.4     |
-|-----------------------------------------+------------------------+----------------------+
-| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
-|                                         |                        |               MIG M. |
-|=========================================+========================+======================|
-|   0  NVIDIA GeForce RTX 4070 ...    Off |   00000000:01:00.0  On |                  N/A |
-|  0%   42C    P2             41W /  285W |     418MiB /  16376MiB |      0%      Default |
-|                                         |                        |                  N/A |
-+-----------------------------------------+------------------------+----------------------+
-                                                                                         
-+-----------------------------------------------------------------------------------------+
-| Processes:                                                                              |
-|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
-|        ID   ID                                                               Usage      |
-|=========================================================================================|
-+-----------------------------------------------------------------------------------------+
-```
-
-Ensuite , nous allons créer 2 répertoires 
-* l'un pour le Dataset
-* l'autre pour le résultat des trailements Yolo
-
-```bash
-mkdir /data/my_dataset
-mkdir /data/my_yolo8s
-```
-
-### Récupération (téléchargement) de notre Dataset
-
-Comme nous l'avons vu plus haut, il existe plusieurs méthodes pour retrouver son Dataset précédement créé sur Robotflow<br>
-Une des plus simple est la commande "curl"  :
-
-```bash
-apt install curl unzip
-
-cd /data/my_dataset
-curl -L "https://app.roboflow.com/ds/MtF5ewIPDd?key=DtuQjJYrBl" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
-
-
-root@50b81f5f3e9f:/data/my_dataset# ls -l 
-
-	-rw-r--r-- 1 root root  150 Jan 24 13:16 README.dataset.txt
-	-rw-r--r-- 1 root root 1190 Jan 24 13:16 README.roboflow.txt
-	-rw-r--r-- 1 root root  299 Jan 24 13:16 data.yaml
-	drwxr-xr-x 4 root root 4096 Jan 24 13:16 test
-	drwxr-xr-x 4 root root 4096 Jan 24 13:16 train
-	drwxr-xr-x 4 root root 4096 Jan 24 13:16 valid
-
-```
-
-### YOLO - Entrainement 
-
-**VOILA !!! Nous y sommes !!!**   ... nous allons maintenant lancer le traintement d'aprenntissage de notre IA 
-
-```bash
-cd /data/my_yolo8s
-
-yolo task=detect mode=train model=yolov8s.pt data=/data/my_dataset/data.yaml  epochs=100 batch=8 
-```
-
-<img src="img/yolo_1.png" width="100%">
-
-... et après un certain temps, parfois plusieurs heures .....  ( ici, un peu mois d'une heure)<br>
-Notre IA est là, le réseau de neurones que nous allons exploiter est dans fichier **best.pt**  
-
-
-```bash
-root@50b81f5f3e9f:/data/my_yolo8s# ls -l /workspace/ultralytics/runs/detect/train/weights/
-total 43968
--rw-r--r-- 1 root root 22510584 Feb  2 15:52 best.pt
--rw-r--r-- 1 root root 22510584 Feb  2 15:52 last.pt
-```
-
-### YOLO - Validation  
-
-```bash 
-	yolo task=detect mode=val model=/workspace/ultralytics/runs/detect/train/weights/best.pt data=/data/my_dataset/data.yaml
-```
-*résultat :*
-```bash
-	Ultralytics YOLOv8.0.55 🚀 Python-3.8.5 torch-2.0.0+cu117 CUDA:0 (NVIDIA GeForce RTX 4070 Ti SUPER, 16069MiB)
-	Model summary (fused): 168 layers, 11127132 parameters, 0 gradients, 28.4 GFLOPs
-	val: Scanning /data/my_dataset/valid/labels.cache... 80 images, 0 backgrounds, 0 corrupt: 100%|██████████| 80/80 [00:00<?, ?it/s]
-					Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 5/5 [00:01<00:00,  3.80it/s]
-					all         80         80      0.978       0.98      0.989      0.921
-				hexagon         80         21      0.979      0.952       0.99      0.916
-					round         80         19      0.939          1      0.974      0.901
-					square         80         20          1      0.967      0.995      0.965
-				triangle         80         20      0.994          1      0.995      0.899
-	Speed: 1.8ms preprocess, 2.8ms inference, 0.0ms loss, 0.9ms postprocess per image
-	Results saved to /workspace/ultralytics/runs/detect/val
-```
-
-### YOLO - Test d'Inference
-
-```bash 
-yolo task=detect mode=predict model=/workspace/ultralytics/runs/detect/train/weights/best.pt conf=0.25 source=/data/my_dataset/test/images save=True
-```
-
-*résultat :*
-
-```bash 
-Ultralytics YOLOv8.0.55 🚀 Python-3.8.5 torch-2.0.0+cu117 CUDA:0 (NVIDIA GeForce RTX 4070 Ti SUPER, 16069MiB)
-Model summary (fused): 168 layers, 11127132 parameters, 0 gradients, 28.4 GFLOPs
-
-image 1/40 /data/my_dataset/test/images/hexagon_mp4-0003_jpg.rf.c293d0bda8579255c22e0bb3adec7517.jpg: 640x640 1 hexagon, 6.0ms
-image 2/40 /data/my_dataset/test/images/hexagon_mp4-0004_jpg.rf.cc7bd017125af4dbd404019b3770f394.jpg: 640x640 1 hexagon, 4.6ms
-image 3/40 /data/my_dataset/test/images/hexagon_mp4-0008_jpg.rf.4fd6e77433c04562e72f935866ce0f6f.jpg: 640x640 1 hexagon, 4.5ms
-image 4/40 /data/my_dataset/test/images/hexagon_mp4-0019_jpg.rf.7d1cf963c7a1ec1475e9835eb22823fe.jpg: 640x640 1 hexagon, 4.4ms
-../..
-image 18/40 /data/my_dataset/test/images/round_mp4-0072_jpg.rf.a7b124ffd4ac510cb800640b2662692c.jpg: 640x640 1 round, 5.2ms
-image 19/40 /data/my_dataset/test/images/round_mp4-0073_jpg.rf.17cc51715ce2f318fbe54c4cf027eb25.jpg: 640x640 1 round, 4.4ms
-image 20/40 /data/my_dataset/test/images/round_mp4-0079_jpg.rf.726d39195525a9379b7a0d027cc95fa2.jpg: 640x640 1 round, 5.3ms
-image 21/40 /data/my_dataset/test/images/square_mp4-0008_jpg.rf.2de6b97777c35ad77243686b52db8fdd.jpg: 640x640 1 square, 4.3ms
-image 22/40 /data/my_dataset/test/images/square_mp4-0031_jpg.rf.51e2987542775d7b404283d2555c1e89.jpg: 640x640 1 square, 4.4ms
-../..
-image 38/40 /data/my_dataset/test/images/triange_mp4-0093_jpg.rf.a5e21f5433c42886dfa68207bf33bcf4.jpg: 640x640 1 triangle, 4.3ms
-image 39/40 /data/my_dataset/test/images/triange_mp4-0094_jpg.rf.ca41d949218064b2667407a288294d54.jpg: 640x640 1 triangle, 4.5ms
-image 40/40 /data/my_dataset/test/images/triange_mp4-0097_jpg.rf.42740df0f5c5443d917efcfb888b12b6.jpg: 640x640 1 triangle, 4.4ms
-Speed: 0.4ms preprocess, 4.9ms inference, 1.3ms postprocess per image at shape (1, 3, 640, 640)
-Results saved to /workspace/ultralytics/runs/detect/predict
-
-```
-
-### YOLO - Export du modèle au formant ONNX
-
-```bash 
-yolo export model=/workspace/ultralytics/runs/detect/train/weights/best.pt imgsz=640 format=onnx opset=11
-```
-
-*résultat :*
-
-```bash 
-	ONNX: export success ✅ 0.7s, saved as /workspace/ultralytics/runs/detect/train/weights/best.onnx (42.7 MB)
-```
-
-
-### YOLO - Sauvegarde 
-
-Il est temps maintenant, de copier tous ces résultats en dehors du conteneur Docker dans lequel nous sommes :
-
-```bash
-cp -rv /workspace/ultralytics/runs/detect/* /data/my_yolo8s 
-
-ls -l /data/my_yolo8s 
-
-	drwxr-xr-x 2 root root     4096 Feb  2 16:26 predict
-	drwxr-xr-x 3 root root     4096 Feb  2 16:26 train
-	drwxr-xr-x 2 root root     4096 Feb  2 16:26 val
-	-rw------- 1 root root  6534387 Feb  2 15:23 yolov8n.pt
-	-rw------- 1 root root 22573363 Feb  2 15:23 yolov8s.pt
-```
-
-Nous pouvons mantenant sortir de notre conteneur Docker 
-
-```bash
-exit
-```
-
-
-# 3.3 - Conversion du modèle
-
-
-TODO
-
-
-
-# 3.4 - Déploiement et tests
-
-
-TODO
+### Prêt à entrainner notre modêle !!!
