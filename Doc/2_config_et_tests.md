@@ -159,7 +159,7 @@ apt install rpicam-apps
 rpicam-hello -t 0 --camera 1 --post-process-file /usr/share/rpi-camera-assets/hailo_yolov8_inference.json
 ```
 
-<div style="text-align:center"><img src="img/hailo_test_1.png" width=80%/></div>
+<a href="https://youtu.be/CgVo6OXgZ7Y"><img src="img/hailo_test_1.png" width=80%/></a>
 
 https://youtu.be/CgVo6OXgZ7Y
 
@@ -192,7 +192,7 @@ ou, pour tester de puis la camera  :
 ```bash
 python basic_pipelines/detection.py --input rpi
 ```
-<div style="text-align:center"><img src="img/hailo_test_2.png" width=80%/></div>
+<a href="https://youtu.be/8fM-AJOjf18"> <img src="img/hailo_test_2.png" width=80%/></a>
 
 https://youtu.be/8fM-AJOjf18
 
