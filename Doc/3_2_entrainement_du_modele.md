@@ -73,7 +73,7 @@ mkdir /data/my_yolo8s
 ## Récupération (téléchargement) de notre Dataset
 
 Comme nous l'avons vu plus haut, il existe plusieurs méthodes pour retrouver son Dataset précédemment créé sur Robotflow<br>
-Une des plus simple est la commande "curl"  :
+Une des méthodes les plus simples est d'utiliser la commande "curl"  :
 
 ```bash
 apt install curl unzip
@@ -112,10 +112,7 @@ Notre IA est là !<br>
 * les graph des données statistiques sont générés 
 
 
-<img src="20250203_results/F1_curve.png" width="24%">
-<img src="20250203_results/P_curve.png" width="24%">
-<img src="20250203_results/PR_curve.png" width="24%">
-<img src="20250203_results/R_curve.png" width="24%">
+<img src="20250203_results/F1_curve.png" width="24%"><img src="20250203_results/P_curve.png" width="24%"><img src="20250203_results/PR_curve.png" width="24%"><img src="20250203_results/R_curve.png" width="24%">
 
 
 * le réseau de neurones que nous allons exploiter est dans fichier **best.pt**  
@@ -191,10 +188,8 @@ Results saved to /workspace/ultralytics/runs/detect/predict
 
 ```
 
-<img src="20250203_results/val_batch0_pred.jpg" width="33%"> 
-<img src="20250203_results/val_batch1_pred.jpg" width="33%">
-<img src="20250203_results/val_batch2_pred.jpg" width="33%">
-<br>
+<img src="20250203_results/val_batch0_pred.jpg" width="33%"> <img src="20250203_results/val_batch1_pred.jpg" width="33%">
+<img src="20250203_results/val_batch2_pred.jpg" width="33%"><br>
 
 ---
 
