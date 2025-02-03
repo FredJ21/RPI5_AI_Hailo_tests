@@ -1,0 +1,21 @@
+2025-02-02 22:34:57,284 - WARNING - mo_config.py:166 - Reducing optimization level to 1 (the accuracy won't be optimized and compression won't be used) because there's less data than the recommended amount (1024)
+2025-02-02 22:34:57,285 - INFO - mo_script_parser.py:82 - Model received quantization params from the hn
+2025-02-02 22:35:02,964 - INFO - algorithm_base.py:140 - MatmulDecompose skipped
+2025-02-02 22:35:03,242 - INFO - algorithm_base.py:143 - Starting Mixed Precision
+2025-02-02 22:35:03,742 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Mixed Precision is done (completion time is 00:00:00.50)
+2025-02-02 22:35:04,093 - INFO - algorithm_base.py:140 - LayerNorm Decomposition skipped
+2025-02-02 22:35:04,927 - INFO - algorithm_base.py:143 - Starting Statistics Collector
+2025-02-02 22:35:04,930 - INFO - stats_collection.py:77 - Using dataset with 40 entries for calibration
+2025-02-02 22:35:30,791 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Statistics Collector is done (completion time is 00:00:25.86)
+2025-02-02 22:35:31,825 - INFO - algorithm_base.py:143 - Starting Fix zp_comp Encoding
+2025-02-02 22:35:31,826 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Fix zp_comp Encoding is done (completion time is 00:00:00.00)
+2025-02-02 22:35:31,826 - INFO - algorithm_base.py:140 - Matmul Equalization skipped
+2025-02-02 22:35:59,531 - INFO - algorithm_base.py:140 - Finetune encoding skipped
+2025-02-02 22:35:59,536 - INFO - algorithm_base.py:143 - Starting Bias Correction
+2025-02-02 22:35:59,946 - INFO - block_by_block.py:325 - The algorithm Bias Correction will use up to 1.25 GB of storage space
+2025-02-02 22:35:59,946 - INFO - bias_correction_v2.py:66 - Using dataset with 40 entries for Bias Correction
+2025-02-02 22:38:35,442 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Bias Correction is done (completion time is 00:02:35.50)
+2025-02-02 22:38:35,452 - INFO - algorithm_base.py:140 - Adaround skipped
+2025-02-02 22:38:35,456 - INFO - algorithm_base.py:140 - Quantization-Aware Fine-Tuning skipped
+2025-02-02 22:38:59,865 - INFO - algorithm_base.py:143 - Starting Layer Noise Analysis
+2025-02-02 22:41:06,020 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Layer Noise Analysis is done (completion time is 00:02:06.15)

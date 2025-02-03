@@ -1,0 +1,21 @@
+2025-02-03 11:01:39,079 - INFO - mo_config.py:158 - Using default optimization level of 2
+2025-02-03 11:01:39,081 - INFO - mo_script_parser.py:82 - Model received quantization params from the hn
+2025-02-03 11:01:44,678 - INFO - algorithm_base.py:140 - MatmulDecompose skipped
+2025-02-03 11:01:44,956 - INFO - algorithm_base.py:143 - Starting Mixed Precision
+2025-02-03 11:01:45,453 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Mixed Precision is done (completion time is 00:00:00.50)
+2025-02-03 11:01:45,820 - INFO - algorithm_base.py:140 - LayerNorm Decomposition skipped
+2025-02-03 11:01:46,649 - INFO - algorithm_base.py:143 - Starting Statistics Collector
+2025-02-03 11:01:46,651 - INFO - stats_collection.py:77 - Using dataset with 64 entries for calibration
+2025-02-03 11:02:12,407 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Statistics Collector is done (completion time is 00:00:25.75)
+2025-02-03 11:02:13,405 - INFO - algorithm_base.py:143 - Starting Fix zp_comp Encoding
+2025-02-03 11:02:13,406 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Fix zp_comp Encoding is done (completion time is 00:00:00.00)
+2025-02-03 11:02:13,406 - INFO - algorithm_base.py:140 - Matmul Equalization skipped
+2025-02-03 11:02:40,660 - INFO - algorithm_base.py:140 - Finetune encoding skipped
+2025-02-03 11:02:40,662 - INFO - algorithm_base.py:140 - Bias Correction skipped
+2025-02-03 11:02:40,670 - INFO - algorithm_base.py:140 - Adaround skipped
+2025-02-03 11:02:40,676 - INFO - algorithm_base.py:143 - Starting Quantization-Aware Fine-Tuning
+2025-02-03 11:02:40,710 - WARNING - dataset_util.py:45 - Dataset is larger than expected size. Increasing the algorithm dataset size might improve the results
+2025-02-03 11:02:40,716 - INFO - qft.py:332 - Using dataset with 1024 entries for finetune
+2025-02-03 11:07:39,963 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Quantization-Aware Fine-Tuning is done (completion time is 00:04:58.39)
+2025-02-03 11:08:04,262 - INFO - algorithm_base.py:143 - Starting Layer Noise Analysis
+2025-02-03 11:10:09,676 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Layer Noise Analysis is done (completion time is 00:02:05.41)
