@@ -108,7 +108,17 @@ Nous utilisons **yolov8s.pt** comme modèle de départ pour apprend à détecter
 <img src="img/yolo_1.png" width="100%">
 
 ... et après un certain temps, parfois plusieurs heures .....  ( ici, un peu moins d'une heure)<br>
-Notre IA est là, le réseau de neurones que nous allons exploiter est dans fichier **best.pt**  
+Notre IA est là !<br>
+* les graph des données statistiques sont générés 
+
+
+<img src="20250203_results/F1_curve.png" width="24%">
+<img src="20250203_results/P_curve.png" width="24%">
+<img src="20250203_results/PR_curve.png" width="24%">
+<img src="20250203_results/R_curve.png" width="24%">
+
+
+* le réseau de neurones que nous allons exploiter est dans fichier **best.pt**  
 
 
 ```bash
@@ -134,14 +144,20 @@ cette étape génère des métriques (mAP, précision, rappel) pour évaluer la 
 					Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 5/5 [00:01<00:00,  3.80it/s]
 					all         80         80      0.978       0.98      0.989      0.921
 				hexagon         80         21      0.979      0.952       0.99      0.916
-					round         80         19      0.939          1      0.974      0.901
-					square         80         20          1      0.967      0.995      0.965
-				triangle         80         20      0.994          1      0.995      0.899
+			 	  round         80         19      0.939          1      0.974      0.901
+				 square         80         20          1      0.967      0.995      0.965
+			   triangle         80         20      0.994          1      0.995      0.899
 	Speed: 1.8ms preprocess, 2.8ms inference, 0.0ms loss, 0.9ms postprocess per image
 	Results saved to /workspace/ultralytics/runs/detect/val
 ```
 
-### YOLO - Test d'Inference
+
+<img src="20250203_results/results.png" width="100%"><br>
+
+<img src="20250203_results/confusion_matrix.png" width="100%"><br>
+
+
+### YOLO - Test d'inférence
 
 ```bash 
 yolo task=detect mode=predict model=/workspace/ultralytics/runs/detect/train/weights/best.pt conf=0.25 source=/data/my_dataset/test/images save=True
@@ -174,6 +190,13 @@ Speed: 0.4ms preprocess, 4.9ms inference, 1.3ms postprocess per image at shape (
 Results saved to /workspace/ultralytics/runs/detect/predict
 
 ```
+
+<img src="20250203_results/val_batch0_pred.jpg" width="33%"> 
+<img src="20250203_results/val_batch1_pred.jpg" width="33%">
+<img src="20250203_results/val_batch2_pred.jpg" width="33%">
+<br>
+
+---
 
 ### YOLO - Export du modèle au formant ONNX
 
@@ -213,7 +236,7 @@ ls -l /data/my_yolo8s
 	-rw------- 1 root root 22573363 Feb  2 15:23 yolov8s.pt
 ```
 
-Nous pouvons mantenant sortir de notre conteneur Docker 
+Nous pouvons mantenant sortir de notre conteneur Docker YOLOv8
 
 ```bash
 exit

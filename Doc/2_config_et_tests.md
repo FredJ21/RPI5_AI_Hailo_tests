@@ -190,7 +190,7 @@ python basic_pipelines/detection.py
 ```
 ou, pour tester de puis la camera  :
 ```bash
-	$ python basic_pipelines/detection.py --input rpi
+python basic_pipelines/detection.py --input rpi
 ```
 <div style="text-align:center"><img src="img/hailo_test_2.png" width=80%/></div>
 
