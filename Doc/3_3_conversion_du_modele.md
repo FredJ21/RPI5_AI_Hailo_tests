@@ -13,14 +13,14 @@ DFC prend en entrée un modèle d’IA, tel que notre modèle YOLOv8  au format 
 * **Compilation en HEF** → Génère un fichier .hef pouvant être exécuté directement sur le module HAILO 8.
 
 
-Comme pour l'apprentissage, la conversion du modèle est réaliser sur un "Gros" PC sous Linux ! <br>
+Comme pour l'apprentissage, la conversion du modèle est réalisé sur un "Gros" PC sous Linux ! <br>
 car cette conversion, ou compilation, demande également beaucoup de ressource Cpu, Gpu, Mémoire<br>
 
 
 ## Installation de DFC 
 
 Le Dataflow Compiler (DFC) fait partie de la suite logiciel proposée par Hailo<br>
-Ces suite inclut les outils nécessaires pour compiler, optimiser et exécuter des modèles sur l'accélérateur Hailo-8.<br>
+Cette suite inclut les outils nécessaires pour compiler, optimiser et exécuter des modèles sur l'accélérateur Hailo-8.<br>
 Hailo propose cette suite sous la forme d'un conteneur Docker, ce qui va nous faciliter grandement la tâche !!<br>
 
 
@@ -38,10 +38,13 @@ unzip hailo_ai_sw_suite_2025-01_docker.zip
 	inflating: hailo_ai_sw_suite_docker_run.sh 
 
 ```
-Nous voici un script Shell pour la création et le lancement de l'image Docker<br> 
+Nous voici avec un script Shell pour la création et le lancement de l'image Docker<br> 
 
-Petit problème : ce script crée un répertoire partagé entre l'image Docker et l'hôte Linux dans le répertoire de l'utilisateur courant.<br>
-J'ai donc réalisé quelques modifications pour l'image Docker "monte" mon disque "/data_1" :<br>
+Petit problème : <br>
+Ce script crée un répertoire partagé entre l'image Docker et l'hôte Linux dans le répertoire de l'utilisateur courant.<br>
+Je préfère travailler sur mon disque **/data_1**<br>
+
+J'ai donc réalisé quelques modifications pour que l'image Docker "monte" mon disque "/data_1" :<br>
 
 ```bash
 vi hailo_ai_sw_suite_docker_run.sh
@@ -84,8 +87,7 @@ Il suffit maintenant de lancer le script :
 	
 ```	
 
-Documentation de la suite Hailo :
-https://hailo.ai/developer-zone/documentation/hailo-sw-suite-2025-01/
+
 
 
 
@@ -103,7 +105,7 @@ ls -l /local/shared_with_docker/
 	drwxrwxrwx 8  1000 1000 4096 Feb  3 10:59 my_yolo8s
 ```
 
-Nous pouvons également vérifier la présence et la version des modules Python/Hailo
+Nous pouvons également vérifier la présence et de la version des modules Python/Hailo préinstallés 
 
 ```bash
 pip list | grep hailo
@@ -120,17 +122,23 @@ pip list | grep hailo
 Il temps maintenant de lancer la compilation de notre fichier ONNX en fichier HEF
 
 A noter : 
-* l'architecture cible est dépendante type de carte HAILO pour Raspberry PI que nous possédons : **hailo8l** ou **hailo8**
+* l'architecture cible est dépendante du type de carte HAILO que nous possédons : **hailo8l** ou **hailo8**
 * la calibration peut être réalisée sur les images de test, validation, ou training ( à tester )
 
 ```bash
 cd /local/shared_with_docker/
 
-	hailomz compile yolov8s --ckpt=my_yolo8s/train/weights/best.onnx --hw-arch hailo8 --calib-path my_dataset/test/images/ --classes 4 --performance
+	hailomz compile yolov8s \
+	    --ckpt=my_yolo8s/train/weights/best.onnx \
+	    --hw-arch hailo8 \
+		--calib-path my_dataset/test/images/ \
+		--classes 4 --performance
 
 ```
+<img src="img/hailo_2.png" width="100%"><br>
 
-Après quelques heures de patience, nous obtenons LE fichier HEF compatible avec le module HAILO 8 du notre Raspberry PI<br>
+Après quelques heures de patience ... <br>
+nous obtenons LE fichier HEF compatible avec le module HAILO 8 du notre Raspberry PI<br>
 
 ```bash 
 ls *hef 
@@ -159,3 +167,6 @@ Nous pouvons maintenant sortir de notre conteneur Docker HAILO
 exit
 ```
 
+----
+*Documentation de la suite Hailo :*<br>
+https://hailo.ai/developer-zone/documentation/hailo-sw-suite-2025-01/
