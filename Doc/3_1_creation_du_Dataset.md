@@ -22,7 +22,7 @@ Nous pouvons distinguer 4 grandes étapes décrites plus bas :
 
 
 _Archive du projet :_<br>
-Vous pouvez retrouver les images et vidéos sources, ainsi que certains résultats des test et quelques scripts sur dépôt GitHub suivant :<br>
+Vous pouvez retrouver les images et vidéos sources, ainsi que certains résultats des test et quelques scripts sur le dépôt GitHub suivant :<br>
 https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
 
@@ -94,7 +94,7 @@ mais le lien entre ces deux fichiers est fait par leur nom ( mon_image_12345.jpg
 
 Enfin, les données doivent être répartis selon un certain ratio : 
 
-* 70 % pour le trainning --> rep *"train"*
+* 70 % pour le training --> rep *"train"*
 * 15 % pour la validation --> rep *"valid"*
 * 15 % pour les tests --> rep *"test"*
 
@@ -129,7 +129,7 @@ ls -al Dataset/Fred_Dataset/images_HD_2
 
 J'ai donc fait plein de photos de mes pièces en veillant, bien évidemment, à réaliser autant de photos pour chacune d'entre elle : 
 
-- 75 photos pour le trainning  dans le répertoire *"train"* (*)
+- 75 photos pour le training  dans le répertoire *"train"* (*)
 - 15 photos pour la validation dans le répertoire *"valid"* (*)
 - 15 photos pour les tests dans le répertoire *"test"* (*)
 
@@ -401,7 +401,7 @@ Pas de difficulté lors du labeling, il faut juste veiller à sélectionner la b
 <img src="img/robotflow_annotate_3.png" width="45%"> <img src="img/robotflow_annotate_4.png" width="45%">
 
 
-Après avoir annoter l'ensemble des images, nous allons ajouter ces images à notre Dataset en utilisant la méthode *"Split Images Between Train/Valid/Test"* qui permettra de répartir aléatoirement nos photos pour les besoins de trainning, validation et test.
+Après avoir annoter l'ensemble des images, nous allons ajouter ces images à notre Dataset en utilisant la méthode *"Split Images Between Train/Valid/Test"* qui permettra de répartir aléatoirement nos photos pour les besoins de training, validation et test.
 
 <img src="img/robotflow_10.png" width="80%"><br>
 
@@ -430,7 +430,7 @@ Après l"opération de "split", nous obtenons :
 
 Un total donc, pour l'ensemble des classes de  :
 
-* 276 image de trainning
+* 276 image de training
 * 80 images de Validation
 * 40 image de Test
    
@@ -443,7 +443,7 @@ Ensuite, la création d'une version du Dataset ( augmentation du nombre d'image)
 Lors de cet augmentation, nous sommes limité, dans la version gratuite de Roboflow, à 1500 images !<br>
 Nous avons donc maintenant : 	
 
-* 1380 image de trainning
+* 1380 image de training
 * 80 images de Validation
 * 40 image de Test
 

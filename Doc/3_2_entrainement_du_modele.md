@@ -232,7 +232,7 @@ ls -l /data/my_yolo8s
 	-rw------- 1 root root 22573363 Feb  2 15:23 yolov8s.pt
 ```
 
-Nous pouvons mantenant sortir de notre conteneur Docker YOLOv8
+Nous pouvons maintenant sortir de notre conteneur Docker YOLOv8
 
 ```bash
 exit

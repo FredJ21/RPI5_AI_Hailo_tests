@@ -1,301 +1,161 @@
 
+# 3.3 - Conversion du modèle pour le module HAILO
+
+DFC (Dataflow Compiler) est un outil clé du Hailo SDK utilisé pour compiler et optimiser des modèles d’intelligence artificielle (IA) pour les exécuter efficacement sur les accélérateurs Hailo-8.
+
+DFC prend en entrée un modèle d’IA, tel que notre modèle YOLOv8  au format ONNX, et le transforme en un fichier HEF (Hailo Executable Format), qui est un format binaire optimisé pour l’inférence sur les puces HAILO.
+
+Étapes principales du  traitement par le compilateur DFC :
+
+* **Parsing** → Charge le modèle ONNX.
+* **Quantization** → Convertit les poids du modèle en entiers 8 bits (INT8) pour accélérer l'inférence.
+* **Optimization** → Réorganise le modèle pour minimiser la latence et la consommation mémoire.
+* **Compilation en HEF** → Génère un fichier .hef pouvant être exécuté directement sur le module HAILO 8.
 
 
-
-# 3.3 - Conversion du modèle
-
-
-TODO
+Comme pour l'apprentissage, la conversion du modèle est réaliser sur un "Gros" PC sous Linux ! <br>
+car cette conversion, ou compilation, demande également beaucoup de ressource Cpu, Gpu, Mémoire<br>
 
 
+## Installation de DFC 
 
-# 3.4 - Déploiement et tests
-
-
-TODO
-
-
+Le Dataflow Compiler (DFC) fait partie de la suite logiciel proposée par Hailo<br>
+Ces suite inclut les outils nécessaires pour compiler, optimiser et exécuter des modèles sur l'accélérateur Hailo-8.<br>
+Hailo propose cette suite sous la forme d'un conteneur Docker, ce qui va nous faciliter grandement la tâche !!<br>
 
 
+Donc, direction :  https://hailo.ai/developer-zone/software-downloads/ <br>
+et téléchargement de l'image Docker
 
+<img src="img/hailo_1.png" width="100%"><br>
 
-### Entrainement du modèle sur Google Colab
+Décompression du fichier :
+```bash
+unzip hailo_ai_sw_suite_2025-01_docker.zip
 
+	Archive:  hailo_ai_sw_suite_2025-01_docker.zip
+	inflating: hailo_ai_sw_suite_2025-01.tar.gz  
+	inflating: hailo_ai_sw_suite_docker_run.sh 
 
-Mon Google Colab ( sur mon drive ): 
-https://colab.research.google.com/drive/12KGsKCOmMf-tXJuz5a4KUEhlx-oW8yZv#scrollTo=A2VZRmI8cRbh
+```
+Nous voici un script Shell pour la création et le lancement de l'image Docker<br> 
 
-Le document Colab doit se connecter à un environnement d'execution avec GPU 
-
-Todo : différent environnement !
-
-il est possible de ce type d'environnement ne soit pas disponible à cause de limitation d'utilisation de Colab.
-il est également possible du subir des déconnections qui engendrons la perte de son travail  .... 
-
-imaginez !  vous lancez le traitement principal d’entraînement de votre nouveau modèle d'IA ... celui ci dure plusieurs heures et vous êtes donc parti faire un tour ...  
-tous s'est bien passé !  nickel ! mais là , à la fin du traitement l'environnement d'execution ne détecte plus d'activité et déconnecte la session en cours !!!  
-... il sera alors très probable de ne plus retrouver son travail lors de la reconnexion !    
-
-
-La version payante permet de garantir une disponibilité des GPU dans le cloud Google. 
-
-Mais une autre solution consiste à se connecter à un environnement d’exécution local . 
-Pour cela , Google proposes une image docker très simple à mettre en œuvre :
-les étapes : 
-
-	- Installation de Docker sur son poste 
-	
-	--shm-size
-	
-	The Docker container’s shared memory (shm-size) can be modified to suit our application’s requirements. By default, the shm-size is set to 64 MB, but we can change it to a different value as needed.
-	
-	
-	
-	- $ docker run --gpus=all -p 127.0.0.1:9000:8080 --shm-size=2gb  europe-docker.pkg.dev/colab-images/public/runtime
-	
-	- puis dans le document Colab --> "connexion à un environnement d’exécution local" 
-
-		"http://127.0.0.1:9000/?token=…
-http://127.0.0.1:9000/?token=05f804ed9df704084e2081ba86881ad50d6358cc220cbd9e
-
----
-
-
-
-python3 -m venv --system-site-packages venv
-source venv/bin/activate
-
-
-pip install ultralytics==8.0.196
-pip install roboflow
-
-
-
->>> import ultralytics
->>> ultralytics.checks()
-
-Ultralytics YOLOv8.0.196 🚀 Python-3.10.12 torch-2.6.0+cu124 CUDA:0 (NVIDIA GeForce GTX 1060 6GB, 6063MiB)
-Setup complete ✅ (8 CPUs, 39.1 GB RAM, 58.4/91.1 GB disk)
->>> 
-
-from roboflow import Roboflow
-rf = Roboflow(api_key="xxxxxxxxxxxxxxxxxxxxxx")
-project = rf.workspace("fred-robotic").project("210125_4_shapes_test")
-version = project.version(2)
-dataset = version.download("yolov8")
-
-
-
-yolo task=detect mode=train model=yolov8s.pt data=/content/210125_4_shapes_TEST-2/data.yaml epochs=1 batch=8 imgsz=640 plots=True
-
-
-
-## 3.3 - Conversion du modèle
-
-Le plus simple est de faire sous linux 
-
-	# pour DFC de Hailo 
-
-	https://hailo.ai/developer-zone/documentation/hailo-sw-suite-2025-01/
-	https://hailo.ai/developer-zone/software-downloads/
-
-
-	
-	$ unzip hailo_ai_sw_suite_2025-01_docker.zip
-
-
-
-Modification du script 
-	
-	ligne 226
-        -v $(pwd)/${SHARED_DIR}/:/local/${SHARED_DIR}:rw \
-		-v /data_1/:/local/${SHARED_DIR}:rw \
-
-	ligne 352 
-		# create_shared_dir
-
-
+Petit problème : ce script crée un répertoire partagé entre l'image Docker et l'hôte Linux dans le répertoire de l'utilisateur courant.<br>
+J'ai donc réalisé quelques modifications pour l'image Docker "monte" mon disque "/data_1" :<br>
 
 ```bash
+vi hailo_ai_sw_suite_docker_run.sh
+
+	ligne 226 - modification
+        avant :		-v $(pwd)/${SHARED_DIR}/:/local/${SHARED_DIR}:rw \
+		après :		-v /data_1/:/local/${SHARED_DIR}:rw \
+
+	ligne 352 - mise en commentaire (ajout de #)
+		# create_shared_dir
+
+```
+
+Il suffit maintenant de lancer le script :
+
+```bash
+./hailo_ai_sw_suite_docker_run.sh
+	
+	Loading Docker image: /home/fredj21/FRED/hailo_ai_sw_suite_2025-01.tar.gz
+	INFO: Checking system requirements...
+	INFO: System requirements check finished successfully.
+	5baeb41057c7: Loading layer [==================================================>]  976.4MB/976.4MB
+	c361101a082c: Loading layer [==================================================>]   83.5MB/83.5MB
+	593a1325c5ed: Loading layer [==================================================>]  12.99MB/12.99MB
+	69b082334a83: Loading layer [==================================================>]  9.197MB/9.197MB
+	b2e1817da5c2: Loading layer [==================================================>]    384MB/384MB
+	71cf924c7ef0: Loading layer [==================================================>]  18.03MB/18.03MB
+	21f476235018: Loading layer [==================================================>]  3.072kB/3.072kB
+	11c4c6ec7d5d: Loading layer [==================================================>]  3.072kB/3.072kB
+	4b7ec45684e6: Loading layer [==================================================>]  3.072kB/3.072kB
+	9661444da425: Loading layer [==================================================>]  194.9MB/194.9MB
+	bba85803bb3e: Loading layer [==================================================>]  3.284GB/3.284GB
+	64951b6189b1: Loading layer [==================================================>]  485.1MB/485.1MB
+	92b2d02a49ee: Loading layer [==================================================>]  2.184GB/2.184GB
+	88eb41c2be66: Loading layer [==================================================>]  5.324GB/5.324GB
+	b3d3a14740d8: Loading layer [==================================================>]  895.5kB/895.5kB
+	2053f733bc05: Loading layer [==================================================>]  192.6MB/192.6MB
+	5f70bf18a086: Loading layer [==================================================>]  1.024kB/1.024kB
+	Loaded image: hailo_ai_sw_suite_2025-01:1	
+	
+```	
+
+Documentation de la suite Hailo :
+https://hailo.ai/developer-zone/documentation/hailo-sw-suite-2025-01/
 
 
 
+## Dans le DOCKER HAILO
 
+... après le télécharge de plusieurs Giga de dépendances .... nous voici dans le Docker HAILO
 
-	$ ./hailo_ai_sw_suite_docker_run.sh
-	
-	
-	plusieurs giga de dépendances lors du premier lancement 
-	
-Loading Docker image: /home/fredj21/FRED/hailo_ai_sw_suite_2025-01.tar.gz
-INFO: Checking system requirements...
-INFO: System requirements check finished successfully.
-5baeb41057c7: Loading layer [==================================================>]  976.4MB/976.4MB
-c361101a082c: Loading layer [==================================================>]   83.5MB/83.5MB
-593a1325c5ed: Loading layer [==================================================>]  12.99MB/12.99MB
-69b082334a83: Loading layer [==================================================>]  9.197MB/9.197MB
-b2e1817da5c2: Loading layer [==================================================>]    384MB/384MB
-71cf924c7ef0: Loading layer [==================================================>]  18.03MB/18.03MB
-21f476235018: Loading layer [==================================================>]  3.072kB/3.072kB
-11c4c6ec7d5d: Loading layer [==================================================>]  3.072kB/3.072kB
-4b7ec45684e6: Loading layer [==================================================>]  3.072kB/3.072kB
-9661444da425: Loading layer [==================================================>]  194.9MB/194.9MB
-bba85803bb3e: Loading layer [==================================================>]  3.284GB/3.284GB
-64951b6189b1: Loading layer [==================================================>]  485.1MB/485.1MB
-92b2d02a49ee: Loading layer [==================================================>]  2.184GB/2.184GB
-88eb41c2be66: Loading layer [==================================================>]  5.324GB/5.324GB
-b3d3a14740d8: Loading layer [==================================================>]  895.5kB/895.5kB
-2053f733bc05: Loading layer [==================================================>]  192.6MB/192.6MB
-5f70bf18a086: Loading layer [==================================================>]  1.024kB/1.024kB
-Loaded image: hailo_ai_sw_suite_2025-01:1	
-	
-	
-		
-	
-	# autres options  :
+le répertoire *"/local/shared_with_docker"* est bien mappé avec le répertoire de l'hôte Linux *"/data_1"*<br>
+Ce qui permet d'avoir accès au Dataset, au modèle que nous avons entraîné, et à la documentation Hailo.<br>
 
-		./hailo_ai_sw_suite_docker_run.sh
-		./hailo_ai_sw_suite_docker_run.sh --help
-		./hailo_ai_sw_suite_docker_run.sh --resume
-		./hailo_ai_sw_suite_docker_run.sh --override
+```bash
+ls -l /local/shared_with_docker/
+	drwxrwxrwx 2 hailo ht   4096 Feb  2 22:33 doc
+	drwxr-xr-x 5  1000 1000 4096 Feb  2 16:21 my_dataset
+	drwxrwxrwx 8  1000 1000 4096 Feb  3 10:59 my_yolo8s
+```
 
+Nous pouvons également vérifier la présence et la version des modules Python/Hailo
 
-	Dans le docker Hailo :
+```bash
+pip list | grep hailo
+	hailo-dataflow-compiler      3.30.0
+	hailo-model-zoo              2.14.0      /local/workspace/hailo_model_zoo
+	hailo-tappas-dot-visualizer  3.31.0      /local/workspace/tappas/tools/trace_analyzer/dot_visualizer
+	hailo-tappas-run-apps        3.31.0      /local/workspace/tappas/tools/run_app
+	hailort                      4.20.0
+```
 	
-		Welcome to Hailo AI Software Suite Container
-		To list available commands, please type:	
 
-		----------------------------------------------------
+### Compilation
 
-		HailoRT:                hailortcli -h
-		Dataflow Compiler:      hailo -h
-		Hailo Model Zoo:        hailomz -h
-		TAPPAS:                 hailo_run_app -h
+Il temps maintenant de lancer la compilation de notre fichier ONNX en fichier HEF
 
-		----------------------------------------------------
-	
-	$ pip list | grep hailo
-		hailo-dataflow-compiler      3.30.0
-		hailo-model-zoo              2.14.0      /local/workspace/hailo_model_zoo
-		hailo-tappas-dot-visualizer  3.31.0      /local/workspace/tappas/tools/trace_analyzer/dot_visualizer
-		hailo-tappas-run-apps        3.31.0      /local/workspace/tappas/tools/run_app
-		hailort                      4.20.0
+A noter : 
+* l'architecture cible est dépendante type de carte HAILO pour Raspberry PI que nous possédons : **hailo8l** ou **hailo8**
+* la calibration peut être réalisée sur les images de test, validation, ou training ( à tester )
 
-	
-	
-		hailo -h
-		
-	Répertoire mappé avec le docker Hailo : 
-			sour linux hote                                 Docker Hailo   
-			/home.fredj21/FRED/shared_with_docker    -->    /local/shared_with_docker/
+```bash
+cd /local/shared_with_docker/
 
-
-
-	je vais donc dans le répertoire de partage dans lequel un repertoire de travail , avec la date du jour, contient mon fichier onnx et les images de test de mon dataset 
-	
-	cp RPI5_AI_Hailo_tests/Results/20250125_result_from_210125_4_shapes_TEST.v3i.yolov8/weights/best.onnx shared_with_docker
-	cp -rv RPI5_AI_Hailo_tests/Dataset/210125_4_shapes_TEST.v3i.yolov8/test   shared_with_docker
-	cp -rv RPI5_AI_Hailo_tests/Dataset/210125_4_shapes_TEST.v3i.yolov8/valid  shared_with_docker
-	cp -rv RPI5_AI_Hailo_tests/Dataset/210125_4_shapes_TEST.v3i.yolov8/train  shared_with_docker
-	
-	
-	$ ./hailo_ai_sw_suite_docker_run.sh --resume
-	$ cd /local/shared_with_docker
-	$ sudo chown -R hailo:ht  
-	$ cd 20250126 
-	
-	
-	
-	
-	Architecture hailo8 ou hailo8l   !!! 
-	
-	
-	$ hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8 --calib-path test/images/ --classes 4 --performance
-
-
-	cd /local/shared_with_docker/
 	hailomz compile yolov8s --ckpt=my_yolo8s/train/weights/best.onnx --hw-arch hailo8 --calib-path my_dataset/test/images/ --classes 4 --performance
 
+```
 
+Après quelques heures de patience, nous obtenons LE fichier HEF compatible avec le module HAILO 8 du notre Raspberry PI<br>
 
-	TODO : 
-		- tester avec les images de calibration du dataset
-		- compiler pour hailo8l 	
+```bash 
+ls *hef 
 
-	
-	
-	
-	
-	
+	yolov8s.hef
 
+```
 
+### Résultats
 
----
+Vous pouvez retrouver l'ensemble des résultats de cette compilation, log et fichier Hef, sur mon dépôt GitHub :<br>
+https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
-## 3.4 - Déploiement et tests
+```bash
+ls -l Results/20250203_result_from_210125_4_shapes_test_v2/hail_result_1
 
+ls -l Results/20250203_result_from_210125_4_shapes_test_v2/hail_result_2
 
-	dans :
-	~/FRED/GIT_RPI5_AI_Hailo_tests/Results/20250125_result_from_210125_4_shapes_TEST.v3i.yolov8/weights/Hailo_Compile
-	
-	Nous créons un fichier de définition des étiquettes : 
-	
-	my-labels.json
+ls -l Results/20250203_result_from_210125_4_shapes_test_v2/hail_result_3
 
+```
 
-{
-    "detection_threshold": 0.5,
-    "max_boxes":200,
-    "labels": [
-      "unlabeled",
-      "hexagon",
-      "round",
-	  "square",
-	  "triangle"
-    ]
-}
+Nous pouvons maintenant sortir de notre conteneur Docker HAILO
 
-
-
-
-
-
-on reprend le test plus haut  : 
-
-	$ cd hailo-rpi5-examples
-	$ source setup_env.sh
-
-	
-	mais, au lieu de lancer cette commande : 
-	$ python basic_pipelines/detection.py
-	
-	
-	nous spécifier le chemin vers notre IA et le fichiers de définition des étiquettes 
-	dans mon cas :
-	
-	MY_HEF=/home/pi/FRED/GIT_RPI5_AI_Hailo_tests/Results/20250125_result_from_210125_4_shapes_TEST.v3i.yolov8/weights/Hailo_Compile/yolov8s.hef
-	MY_LABELS=/home/pi/FRED/GIT_RPI5_AI_Hailo_tests/Results/20250125_result_from_210125_4_shapes_TEST.v3i.yolov8/weights/Hailo_Compile/my-labels.json
-	
-	
-	python3 basic_pipelines/detection.py --hef-path $MY_HEF --labels-json $MY_LABELS --input rpi --camera 0
-	
-
-
-
----
----
----
-
-
-##
-Documentation officielle Raspberry PI :
-https://www.raspberrypi.com/documentation/computers/ai.html
-
-##
-
-Généralement, nous n'avons pas besoin de former son propre IA, car il existe une large gamme de modèle prè-formés pour les la gammes des accélérateurs Hailo : 
-
-https://github.com/hailo-ai/hailo_model_zoo/tree/master/docs/public_models/HAILO8L
-https://github.com/hailo-ai/hailo_model_zoo/tree/master/docs/public_models/HAILO8
-
+```bash
+exit
+```
 
