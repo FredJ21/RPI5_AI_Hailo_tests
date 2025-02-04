@@ -17,7 +17,7 @@ Nous pouvons distinguer 4 grandes étapes décrites plus bas :
 1. [la création de son jeu de données : le dataset](3_1_creation_du_Dataset.md)
 2. [l’entraînement du modèle IA avec YOLOv8](3_2_entrainement_du_modele.md)
 3. [la conversion, ou compilation, du modèle pour le module HAILO](3_3_conversion_du_modele.md)
-4. [le déploiement et les tests sur le Raspberry PI](3_4_deploiement_du_modele/md)
+4. [le déploiement et les tests sur le Raspberry PI](3_4_deploiement_du_modele.md)
 
 
 
