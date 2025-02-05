@@ -3,7 +3,7 @@ Après notre petite introduction en partie 1 et la configuration du Raspberry PI
 Il est temps de rentrer dans le vif du sujet  !!!<br>
 
 ### Partie 3 
-# Créer et entraîner son propre IA pour le module HAILO du Raspberry PI5
+# Créer et Entraîner son propre IA<br>pour le module AI HAILO du Raspberry PI5
 
 L'objectif est donc de :
 
