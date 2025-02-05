@@ -1,5 +1,5 @@
 
-Après notre petite introduction en partie 1 et la configuration du Raspberry PI en parti 2,<br>
+Après notre petite introduction en [partie 1](1_intro.md) et la configuration du Raspberry PI en [partie 2](2_config_et_tests.md),<br>
 Il est temps de rentrer dans le vif du sujet  !!!<br>
 
 ### Partie 3 
@@ -30,14 +30,13 @@ https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
 ## 3.1 - Création de son jeu de donnée
 
-Pour la création du Dataset, plusieurs méthodes se présentent à nous : 
+Pour la création du Dataset, différentes méthodes se présentent à nous :<br>
  
 1. Tout réaliser en local à l'aide d'outils spécifiques et/ou scripts Python 
 2. Utiliser une plateforme spécialisée, en ligne, dans le cloud 
 
-J'ai commencé, dans un premier temps, par réaliser mon jeu de donnée en local,<br>
-pour ensuite réaliser des versions plus complexes et certainement efficaces sur *Roboflow*,
-une plateforme particulière intéressante pour notre besoin.<br>
+J'ai commencé, dans un premier temps, par réaliser mon jeu de donnée en local, pour ensuite réaliser des versions plus complexes et certainement plus efficaces sur *Roboflow*, une plateforme particulière intéressante pour créer et stocker des Dataset.<br>
+
 Je vais donc décrire ces deux approches.
 
 
@@ -58,7 +57,7 @@ Ce modèle d'IA est particulièrement adapté et préconisé pour le module HAIL
 ### Autres éléments importants :
 
 - YOLOv8, comme ses prédécesseurs, fonctionne mieux avec des images carrées.
-- les images doivent avoir une dimension de 640x640 pixels (par défaut pour YOLOv8) 
+- la dimension des images de 640x640 pixels (par défaut pour YOLOv8) 
    --> Un bon compromis entre précision et performance. 
 
 - l’arborescence des répertoires 
@@ -94,9 +93,9 @@ mais le lien entre ces deux fichiers est fait par leur nom ( mon_image_12345.jpg
 
 Enfin, les données doivent être répartis selon un certain ratio : 
 
-* 70 % pour le training --> rep *"train"*
-* 15 % pour la validation --> rep *"valid"*
-* 15 % pour les tests --> rep *"test"*
+* 70 % pour le training --> répertoire *"train"*
+* 15 % pour la validation --> répertoire *"valid"*
+* 15 % pour les tests --> répertoire *"test"*
 
 Nous pourrions également envisager un répartition de 70/20/10 , ou 75/15/10 .... à tester ...
 
@@ -108,10 +107,10 @@ J'ai réalisé de nombreux tests de création de dataset, avec 12 objets différ
 différents fonds, plusieurs types d'éclairage ...  mais ça commençait à se compliquer un peu ... 
 surtout quand le résultat attendu n'était pas vraiment au rendez vous .... 
 
-J'ai donc réduit la voilure avec Dataset est composé de 2 classes  :  "carré vert"  & "carré rouge"<br>
+J'ai donc réduit la voilure avec un Dataset composé de 2 classes  :  "carré vert"  & "carré rouge"<br>
 
 
-Les fichiers sources, de mon derniers tests, son disponibles dans mon repo GitHub :
+Les fichiers sources, de mes derniers tests, son disponibles dans mon repo GitHub :<br>
 https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
 
@@ -149,7 +148,7 @@ Cela produit une image haute définition de 4608x2592 pixels et d'environ 3,3 Mo
 <a href="img/1734219623.jpg"><img src="img/1734219623.jpg" width="49%"></a>
 
 Le script **"prendre_une_photo.sh"** ( dans le répertoire [GIT]Scripts/bin ) permet d'automatiser la séance !<br>
-en prenant une photo toutes les 2 secondes et en répartissant les clichés des les répertoires : train, valid, et test.<br>
+en prenant une photo toutes les 2 secondes et en répartissant les clichés dans les répertoires : train, valid, et test.<br>
 Le nom des fichiers correspond à un horodatage de type timestamp. 
 
 ```bash
@@ -211,7 +210,7 @@ Tous les fichiers jpeg sont maintenant accompagnés par un fichier texte du mêm
 	1734220572.jpg  -->  1734220572.txt
 	1734219623.jpg  -->  1734219623.txt
 
-Ces fichiers contiennent 5 valeurs numérique :
+Ces fichiers contiennent 5 valeurs numériques :
 
 ```bash
 $ cat train/1734219226.txt 
@@ -219,13 +218,13 @@ $ cat train/1734219226.txt
 1 0.637242 0.526384 0.053579 0.094291
 ```
 
-* l'index de la classe d'objet (0->carré route, 1->carré vert) et les 
+* l'index de la classe d'objet (0->carré route, 1->carré vert)
 * la position en X du centre de l’objet
 * la position en Y du centre de l’objet
 * la largeur de l’objet 
 * la hauteur de l’objet
 
-Les coordonnées sont normalisées de 0 à 1
+Les coordonnées sont normalisées de 0 à 1 sur la largeur et la hauteur de l'image.
 
 ----
 
@@ -279,9 +278,9 @@ cat dataset_HD_to_640x640.conf
 
 Le fichier de configuration défini les répertoires source et destination, le nombre de bruit, le nombre de retournement d'image<br>
 Le script se chargera également de recalculer la nouvelle position, en x et y, de l'objet et ses dimensions afin de produire un nouveau fichier label.<br>    
-Le répertoire cible (REP_OUT) n'est pas obligé d'exister, le script se chargera de créer toute l’arborescence de répertoires.
+Le répertoire cible (REP_OUT) peut ne pas exister, le script se chargera de créer toute l’arborescence de répertoires.
 
-## *GO !!!* 
+### *GO !!!* 
 
 
 ```bash 
@@ -290,13 +289,14 @@ python dataset_HD_to_640x640.py
 
 ```
 
-Puisque nous avons réalisé 15 itérations, pour lesquels nous avons une version avec et sans bruit, et 3 retournements en plus de la position de départ    
+Puisque nous avons réalisé 15 itérations, pour lesquels nous avons une version avec et une version sans bruit, et nous avons réalisé 3 retournements en plus de la position de départ ... 
+notre Dataset est maintenant plus volumineux :     
 
 - 150 * 15 * 2 * 4 --> 18000 photos le répertoire *"train"* 
 - 30 * 15 * 2 * 4 --> 3600 photos dans le répertoire *"valid"* 
 - 30 * 15 * 2 * 4 --> 3600 photos dans le répertoire *"test"*
 
-cd qui donne un total de 25200 photos accompagnées de leurs annotations !<br>
+ce qui donne un total de 25200 photos accompagnées de leurs annotations !<br>
 en effet : 
 
 ```bash
@@ -329,11 +329,11 @@ On peut identifier plusieurs fonctionnalités très intéressantes :
 
 
 
-Une dès première fonctionnalité très intéressante :  
+Une dès première fonctionnalité très intéressante que j'ai exploitée :  
 
 * **Roboflow permet d'extraire une série de photos depuis une vidéo !!!**
 
-### Nouveau Dataset :
+### Mon nouveau Dataset :
 
 Cette fois ci, pour ce nouveau Dataset, j'ai choisi un nouvel énoncé de départ :
 
@@ -343,7 +343,7 @@ Cette fois ci, pour ce nouveau Dataset, j'ai choisi un nouvel énoncé de dépar
 * chaque vidéo dure exactement de 20 secondes 
 
 
-Pour réaliser les vidés, c'est très simple !  il suffit d'utiliser la camera du Raspberry PI ! <br>
+Pour réaliser les vidéos, c'est très simple !  il suffit d'utiliser la caméra du Raspberry PI ! <br>
 Avec la commande suivante : 
 
 ```bash
@@ -407,10 +407,9 @@ Après avoir annoter l'ensemble des images, nous allons ajouter ces images à no
 
 
 Enfin, il nous reste à générer une nouvelle version de notre Dataset en appliquant des opérations de **rotation**, ajout de **bruit**, passage de certaines photos en **niveau de gris**, .... <br>
+Le but étant, ici, d'augmenter artificiellement le nombre de photos de notre Dataset<br>
 
 Dans la section "Dataset" --> "Generate Version"
-
-Le but étant, ici, d'augmenter artificiellement le nombre de photos de notre Dataset<br>
 
 <img src="img/robotflow_11.png" width="40%"><br>
 
