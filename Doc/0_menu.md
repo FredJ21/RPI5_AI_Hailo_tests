@@ -1,4 +1,4 @@
-## Entraîner son propre IA pour le module AI HAILO du Raspberry PI5
+# Créer et Entraîner son propre IA<br>pour le module AI HAILO du Raspberry PI5
 
 
 <img src="img/en_construction.webp" width="20%">
