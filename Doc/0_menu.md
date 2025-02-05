@@ -1,15 +1,16 @@
-# Créer et entraîner son propre IA pour les modules HAILO du Raspberry PI5
+# Entraîner son propre IA pour le module AI HAILO du Raspberry PI5
 
 
-<img src="img/en_construction.webp" width="100%">
+<img src="img/en_construction.webp" width="20%">
 
-Je vous propose mon retour d’expérience sur la mise en œuvre d'une intelligence artificielle, sur une carte Raspberry PI5,<br> capable de reconnaître et différencier un ensemble d'objets personnels.
+Je vous propose mon retour d’expérience sur la mise en œuvre d'une intelligence artificielle sur le nouveau module HAILO 8 (ou HAILO 8L) équipant un Raspberry PI5, et capable de reconnaître et différencier un ensemble d'objets personnels.
 
-Le principe est d’entraîner un réseau de neurones, de façon automatique, à l'aide d'un ensemble de données composé d'un certain nombre d'images : LE "DataSet".
+Le principe est d’entraîner un réseau de neurones, de façon automatique, à l'aide des outils YOLO et du compilateur HAILO, sur la base d'un ensemble de données composé d'un certain nombre d'images : Le "DataSet".
 
 Ce réseau de neurones, ou "IA", sera ensuite capable de reconnaître les objets pour lequel nous l'avons entraîné.<br>
-Ou plus exactement, l'IA sera capable d'effectuer une prédiction de reconnaissance avec un certain taux de certitude.
+Ou plus exactement, l'IA sera capable d'effectuer des prédictions de reconnaissance avec un certain taux de certitude sur des images ou sur un flux vidéo.
          
+<a href="img/test_1.png"><img src="img/test_1.png" width="49%"></a> <a href="img/test_2.png"><img src="img/test_2.png" width="49%"></a> <br>
 
 ## Au sommaire :
 
@@ -42,5 +43,11 @@ Ou plus exactement, l'IA sera capable d'effectuer une prédiction de reconnaissa
 
 
 4. [Conclusion](4_conclusion.md)<br>
+
+---
+
+<a href="https://youtu.be/b6qGFZ387_Y"><img src="img/test_youtube.png" width=80%/></a>
+https://youtu.be/b6qGFZ387_Y
+ 
 
 ---
