@@ -5,14 +5,12 @@ Dernière étape !!  le test final !!
 
 ## Pré-requis 
 
-Voici le quelques pré-requis pour tester son IA fraîchement compilée 
+Pré-requis pour tester son IA fraîchement compilée :
 
-* Installer et configurer correctement son Raspberry PI5
-* Installer les exemples proposés par HAILO<br>
-  ( ce permet de récupérer les dépendances et l'environnement d'exécution ) 
-* Créer un fichier de configuration JSON
-* Le fichier .hef ( préalablement copié sur le Raspberry PI)
-
+* Installation et configuration du Raspberry PI5 : Assurez-vous que votre Raspberry PI5 est correctement installé et configuré.
+* Installation des exemples proposés par HAILO : Ces exemples permettent de récupérer les dépendances nécessaires ainsi que l'environnement d'exécution.
+* Création d'un fichier de configuration JSON : Ce fichier définira les paramètres requis par votre application.
+* Utilisation du fichier .hef préalablement copié sur le Raspberry PI pour l'utiliser lors de l'exécution.
 ---
 
 ### Installer et configurer correctement son Raspberry PI5
@@ -109,6 +107,8 @@ Let's GO !!!
 
 <a href="img/test_1.png"><img src="img/test_1.png" width="49%"></a>  <a href="img/test_2.png"><img src="img/test_2.png" width="49%"></a> <a href="img/test_3.png"><img src="img/test_3.png" width="49%"></a> <a href="img/test_4.png"><img src="img/test_4.png" width="49%"></a>
 <br>
+
+Test final réussi ! La puce HAILO8 exécute le modèle d'IA avec une très bonne précision. La reconnaissance des objets s'effectue en temps réel, démontrant la puissance et l'efficacité du système. Tous les paramètres et configurations se sont révélés corrects, ce qui confirme la fiabilité de notre pipeline de déploiement et l'optimisation du fichier .hef. C'est une validation concrète de notre travail de compilation et d'intégration sur le Raspberry PI5 !"
 
 
 <a href="https://youtu.be/b6qGFZ387_Y"><img src="img/test_youtube.png" width=100%/></a>
