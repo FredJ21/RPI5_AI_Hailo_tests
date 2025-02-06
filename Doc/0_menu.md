@@ -1,8 +1,6 @@
 # Créer et Entraîner son propre IA<br>pour le module AI HAILO du Raspberry PI5
 
 
-<img src="img/en_construction.webp" width="20%">
-
 Je vous propose de partager mon retour d’expérience sur la mise en œuvre d'une intelligence artificielle avec le nouveau module HAILO 8 (ou HAILO 8L) intégré dans un Raspberry PI5, capable de reconnaître et différencier divers objets personnels.
 
 Le principe repose sur l'entraînement automatique d'un réseau de neurones, en utilisant les outils YOLO et le compilateur HAILO, à partir d'un ensemble de données constitué d'un certain nombre d'images (le "DataSet").
