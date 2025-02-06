@@ -38,10 +38,10 @@ Ce réseau de neurones sera ensuite capable d'identifier, avec un taux de certit
     3.2 [Entraînement du modèle de notre IA](3_2_entrainement_du_modele.md)<br>
     3.3 [Conversion du modèle pour le module HAILO](3_3_conversion_du_modele.md)<br>
     3.4 [Déploiement et tests sur le Raspberry PI5](3_4_deploiement_du_modele.md)<br>
+    3.5 [Conclusion](3_5_conclusion.md)<br>
 
 
-
-4. [Conclusion](4_conclusion.md)<br>
+4. Conclusion (*TODO*)<br>
 
 ---
 

@@ -1,4 +1,6 @@
 
+<img src="img/en_construction.webp" width="100%">
+
 ### Entrainement du modèle sur Google Colab
 
 
