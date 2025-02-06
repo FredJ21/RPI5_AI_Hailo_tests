@@ -1,8 +1,19 @@
 
-Après notre petite introduction en [partie 1](1_intro.md) et la configuration du Raspberry PI en [partie 2](2_config_et_tests.md),<br>
+Je vous propose mon retour d’expérience sur la mise en œuvre d'une intelligence artificielle sur le nouveau module HAILO 8 (ou HAILO 8L) équipant un Raspberry PI5, et capable de reconnaître et différencier un ensemble d'objets personnels.
+
+Le principe est d’entraîner un réseau de neurones, de façon automatique, à l'aide des outils YOLO et du compilateur HAILO, sur la base d'un ensemble de données composé d'un certain nombre d'images : Le "DataSet".
+
+Ce réseau de neurones, ou "IA", sera ensuite capable de reconnaître les objets pour lequel nous l'avons entraîné.<br>
+Ou plus exactement, l'IA sera capable d'effectuer des prédictions de reconnaissance avec un certain taux de certitude sur des images ou sur un flux vidéo.
+
+<a href="img/test_1.png"><img src="img/test_1.png" width="49%"></a> <a href="img/test_2.png"><img src="img/test_2.png" width="49%"></a> <br>
+
+
+Après notre petite introduction en [partie 1](1_intro.md) (introduction) et la configuration du Raspberry PI en [partie 2](2_config_et_tests.md) (Configuration et tests rapides du module AI HAILO),<br>
 Il est temps de rentrer dans le vif du sujet  !!!<br>
 
-### Partie 3 
+
+### Partie 3
 # Créer et Entraîner son propre IA<br>pour le module AI HAILO du Raspberry PI5
 
 L'objectif est donc de :
@@ -28,7 +39,7 @@ https://github.com/FredJ21/RPI5_AI_Hailo_tests
 
 ---
 
-## 3.1 - Création de son jeu de donnée
+# 3.1 - Création de son jeu de donnée
 
 Pour la création du Dataset, différentes méthodes se présentent à nous :<br>
  

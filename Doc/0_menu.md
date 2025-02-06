@@ -30,7 +30,7 @@ Ou plus exactement, l'IA sera capable d'effectuer des prédictions de reconnaiss
     2.4 Tests de Détection, Segmentation, Estimation<br>  
     
 
-3. Création de son propre réseau de neurones pour le module HAILO
+3. Créer et Entraîner son propre IA pour le module AI HAILO du Raspberry PI5
 
     3.1 [Création de son jeu de donnée](3_1_creation_du_Dataset.md)<br>
     - 3.1.1 Création du Dataset en local<br>
