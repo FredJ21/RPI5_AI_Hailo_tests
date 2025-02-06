@@ -110,7 +110,8 @@ Let's GO !!!
 
 Test final réussi !<br>
 La puce HAILO8 exécute le modèle d'IA avec une très bonne précision. La reconnaissance des objets s'effectue en temps réel, démontrant la puissance et l'efficacité du système.<br>
-Tous les paramètres et configurations se sont révélés corrects, ce qui confirme la fiabilité de notre pipeline de déploiement et l'optimisation du fichier .hef. C'est une validation concrète de notre travail de compilation et d'intégration sur le Raspberry PI5 !"<br>
+Tous les paramètres et configurations se sont révélés corrects, ce qui confirme la fiabilité de notre pipeline de déploiement et l'optimisation du fichier .hef.<br>
+C'est une validation concrète de notre travail de compilation et d'intégration sur le Raspberry PI5 !<br>
 
 
 <a href="https://youtu.be/b6qGFZ387_Y"><img src="img/test_youtube.png" width=100%/></a>

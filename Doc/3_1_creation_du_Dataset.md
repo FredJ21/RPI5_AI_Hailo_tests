@@ -357,7 +357,7 @@ Pour réaliser les vidéos, c'est très simple !  il suffit d'utiliser la camér
 Avec la commande suivante : 
 
 ```bash
-	rpicam-vid --camera 0 -t20000 --autofocus-range normal --autofocus-speed fast -o square.mp4
+rpicam-vid --camera 0 -t20000 --autofocus-range normal --autofocus-speed fast -o square.mp4
 ```
 
 Nous pouvons bien évidemment ajuster les paramètres d'autofocus et autres ... 
