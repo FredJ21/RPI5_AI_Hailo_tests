@@ -39,7 +39,6 @@ Ce réseau de neurones sera ensuite capable d'identifier, avec un taux de certit
     3.5 [Conclusion](3_5_conclusion.md)<br>
 
 
-4. Conclusion (*TODO*)<br>
 
 ---
 
