@@ -3,12 +3,11 @@
 
 <img src="img/en_construction.webp" width="20%">
 
-Je vous propose mon retour d’expérience sur la mise en œuvre d'une intelligence artificielle sur le nouveau module HAILO 8 (ou HAILO 8L) équipant un Raspberry PI5, et capable de reconnaître et différencier un ensemble d'objets personnels.
+Je vous propose de partager mon retour d’expérience sur la mise en œuvre d'une intelligence artificielle avec le nouveau module HAILO 8 (ou HAILO 8L) intégré dans un Raspberry PI5, capable de reconnaître et différencier divers objets personnels.
 
-Le principe est d’entraîner un réseau de neurones, de façon automatique, à l'aide des outils YOLO et du compilateur HAILO, sur la base d'un ensemble de données composé d'un certain nombre d'images : Le "DataSet".
+Le principe repose sur l'entraînement automatique d'un réseau de neurones, en utilisant les outils YOLO et le compilateur HAILO, à partir d'un ensemble de données constitué d'un certain nombre d'images (le "DataSet").
 
-Ce réseau de neurones, ou "IA", sera ensuite capable de reconnaître les objets pour lequel nous l'avons entraîné.<br>
-Ou plus exactement, l'IA sera capable d'effectuer des prédictions de reconnaissance avec un certain taux de certitude sur des images ou sur un flux vidéo.
+Ce réseau de neurones sera ensuite capable d'identifier, avec un taux de certitude donné, les objets pour lesquels il a été entraîné, que ce soit sur des images statiques ou sur un flux vidéo.
          
 <a href="img/test_1.png"><img src="img/test_1.png" width="49%"></a> <a href="img/test_2.png"><img src="img/test_2.png" width="49%"></a> <br>
 
