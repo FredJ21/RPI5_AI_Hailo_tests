@@ -9,7 +9,7 @@ Le premier article d'une série de 3, par Fred Robotic , vice-président de l'as
 
 ---
 
-Un grand merci à toute l'équipe **Kubii.fr**, distributeur officiel des produits Raspberry Pi et Micro:Bit en France, pour ce projet !!
-
-<a href="https://www.kubii.com"><img src="Doc/img/kubii.jpg" width="100%"></a>
+Un grand merci à toute l'équipe **Kubii.fr**, pour la fourniture du matériel qui a permis de réaliser toutes ces expériences, et en particulier pour le module d’Intelligence artificielle Hailo, indispensable dans ce développement.<br>
+[www.kubii.fr](https://www.kubii.fr), distributeur officiel des produits Raspberry Pi et Micro:Bit en France.
+<a href="https://www.kubii.com"><img src="Doc/img/kubii.jpg" width="50%"></a>
 
