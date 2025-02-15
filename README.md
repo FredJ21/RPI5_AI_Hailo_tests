@@ -34,7 +34,7 @@ Prérequis : une machine puissante équipée d’un puissant processeur graphiqu
 
 https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-2
 
-<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-1"><img src="Doc/img/IA_FRED_titre_02.jpg" width="100%"></a>
+<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-1"><img src="Doc/img/IA_FRED_titre_02-624x360.jpg" width="100%"></a>
 
 ---
 
