@@ -1,0 +1,39 @@
+
+Le 21 fevrier 2025 - nouveau dataset : CAPTCHA
+
+## Page de test 
+
+https://www.fred-j.org/robot/
+
+## capture video 
+
+rpicam-vid --list-cameras
+
+rpicam-vid -camera 1 -t 60000  -v \
+	--autofocus-mod manual \
+	--width 1536 --height 864 \
+	--metering spot \
+	--o test.mp4
+
+
+## import sur roboflow.com
+
+- 120 images
+	Train: 90 images (75%)		x3 variants (augmentation)
+	Valid: 18 images (15%)
+	Test: 12 images (10%)
+
+- augmentation
+	Grayscale  -->  Apply to 25% of images
+	Exposure  -->  Between -15% and +15%
+
+- Total : 300 images
+
+## Download du DataSet
+
+https://universe.roboflow.com/fred-robotic/fred_captcha/dataset/1
+
+curl -L "https://app.roboflow.com/ds/9NKyqTjuak?key=9jrW34ACqq" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip
+
+
+
