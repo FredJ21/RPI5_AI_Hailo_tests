@@ -9,7 +9,7 @@ https://www.fred-j.org/robot/
 
 rpicam-vid --list-cameras
 
-rpicam-vid -camera 1 -t 60000  -v \
+rpicam-vid -camera 1 -t 60000 -v \
 	--autofocus-mod manual \
 	--width 1536 --height 864 \
 	--metering spot \
@@ -60,4 +60,9 @@ model = YOLO('runs/pose/train/weights/best.pt')
 results = model("my_dataset/test/images/test_mp4-0019_jpg.rf.3ea6126b211b9a30dd868d60e31dbf2e.jpg")
 
 
+------------------------------------------------------------
+
+python camera.py -video exemples/video_60s.mp4  -yolo /home/pi/FRED/RPI5_AI_Hailo_tests/Dataset/2025-02-21_Fred_Captcha/Results/runs_20250224/pose/train/weights/best.pt  -size 800
+
+python camera.py -cam 0  -yolo /home/pi/FRED/RPI5_AI_Hailo_tests/Dataset/2025-02-21_Fred_Captcha/Results/runs_20250224/pose/train/weights/best.pt  -size 800
 
