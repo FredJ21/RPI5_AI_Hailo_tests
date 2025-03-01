@@ -1,0 +1,40 @@
+2025-03-01 08:16:55,958 - WARNING - mo_config.py:166 - Reducing optimization level to 1 (the accuracy won't be optimized and compression won't be used) because there's less data than the recommended amount (1024)
+2025-03-01 08:16:55,959 - INFO - mo_script_parser.py:82 - Model received quantization params from the hn
+2025-03-01 08:17:01,098 - INFO - algorithm_base.py:140 - MatmulDecompose skipped
+2025-03-01 08:17:01,342 - INFO - algorithm_base.py:143 - Starting Mixed Precision
+2025-03-01 08:17:01,924 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Mixed Precision is done (completion time is 00:00:00.58)
+2025-03-01 08:17:02,218 - INFO - algorithm_base.py:140 - LayerNorm Decomposition skipped
+2025-03-01 08:17:02,963 - INFO - algorithm_base.py:143 - Starting Statistics Collector
+2025-03-01 08:17:02,966 - INFO - stats_collection.py:77 - Using dataset with 64 entries for calibration
+2025-03-01 08:17:30,680 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Statistics Collector is done (completion time is 00:00:27.71)
+2025-03-01 08:17:31,691 - INFO - create_io_encoding.py:134 - Output layer yolov8s_pose/conv44 with sigmoid activation was detected. Forcing its output range to be [0, 1] (original range was [2.6237910449219396e-27, 0.9697755575180054]).
+2025-03-01 08:17:31,701 - INFO - create_io_encoding.py:134 - Output layer yolov8s_pose/conv58 with sigmoid activation was detected. Forcing its output range to be [0, 1] (original range was [4.827289479568164e-27, 0.9633965492248535]).
+2025-03-01 08:17:31,710 - INFO - create_io_encoding.py:134 - Output layer yolov8s_pose/conv71 with sigmoid activation was detected. Forcing its output range to be [0, 1] (original range was [4.547644927299643e-09, 4.829799763683695e-06]).
+2025-03-01 08:17:31,714 - INFO - algorithm_base.py:143 - Starting Fix zp_comp Encoding
+2025-03-01 08:17:31,715 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Fix zp_comp Encoding is done (completion time is 00:00:00.00)
+2025-03-01 08:17:31,715 - INFO - algorithm_base.py:140 - Matmul Equalization skipped
+2025-03-01 08:17:35,050 - INFO - conv_stripped_op.py:614 - No shifts available for layer yolov8s_pose/conv66/conv_op, using max shift instead. delta=0.2791
+2025-03-01 08:17:35,098 - INFO - conv_stripped_op.py:614 - No shifts available for layer yolov8s_pose/conv66/conv_op, using max shift instead. delta=0.1396
+2025-03-01 08:18:00,862 - INFO - algorithm_base.py:140 - Finetune encoding skipped
+2025-03-01 08:18:00,867 - INFO - algorithm_base.py:143 - Starting Bias Correction
+2025-03-01 08:18:01,317 - INFO - block_by_block.py:325 - The algorithm Bias Correction will use up to 1.15 GB of storage space
+2025-03-01 08:18:01,317 - INFO - bias_correction_v2.py:66 - Using dataset with 64 entries for Bias Correction
+2025-03-01 08:20:41,069 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Bias Correction is done (completion time is 00:02:39.75)
+2025-03-01 08:20:41,080 - INFO - algorithm_base.py:140 - Adaround skipped
+2025-03-01 08:20:41,085 - WARNING - optimization_algorithm.py:212 - Quantization-Aware Fine-Tuning:	Dataset didn't have enough data for dataset_size of 1024 	Quantizing using calibration size of 270
+2025-03-01 08:20:41,085 - INFO - algorithm_base.py:143 - Starting Quantization-Aware Fine-Tuning
+2025-03-01 08:20:41,129 - INFO - qft.py:332 - Using dataset with 270 entries for finetune
+2025-03-01 08:23:02,601 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Quantization-Aware Fine-Tuning is done (completion time is 00:02:20.45)
+2025-03-01 08:23:28,363 - INFO - algorithm_base.py:143 - Starting Layer Noise Analysis
+2025-03-01 08:25:48,044 - INFO - algorithm_base.py:159 - Model Optimization Algorithm Layer Noise Analysis is done (completion time is 00:02:19.68)
+2025-03-01 08:25:48,471 - INFO - quant_checker.py:122 - Output layers signal-to-noise ratio (SNR): measures the quantization noise (higher is better)
+2025-03-01 08:25:48,471 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer7 SNR:	21.16 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer8 SNR:	0.0 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer9 SNR:	16.33 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer4 SNR:	17.61 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer5 SNR:	28.79 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer6 SNR:	14.88 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer1 SNR:	17.79 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer2 SNR:	28.04 dB
+2025-03-01 08:25:48,472 - INFO - quant_checker.py:127 - 	yolov8s_pose/output_layer3 SNR:	15.28 dB
+2025-03-01 08:25:48,473 - WARNING - quant_checker.py:176 - The expected calibration set should be [0, 255] when using an in-net normalization layer, but the range received is [(0.0, 220.0), (0.0, 224.0), (0.0, 248.0)].
