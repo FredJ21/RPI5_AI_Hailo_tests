@@ -52,6 +52,10 @@ python
  results = model.train(data='/data_1/2025-02-24/my_dataset/data.yaml', epochs=100, imgsz=640)
 
 
+## Conversion ONNX
+
+yolo export model=best.pt imgsz=640 format=onnx opset=11
+
 ## TEST
 
 from ultralytics import YOLO
@@ -60,4 +64,18 @@ model = YOLO('runs/pose/train/weights/best.pt')
 results = model("my_dataset/test/images/test_mp4-0019_jpg.rf.3ea6126b211b9a30dd868d60e31dbf2e.jpg")
 
 
+------------------------------------------------------------
+## Compilation HAILO
+
+./hailo_ai_sw_suite_docker_run.sh --resume
+
+cd /local/shared_with_docker/
+sudo chown hailo 2025-02-24
+cd 2025-02-24
+
+hailomz compile yolov8s_pose \
+  --ckpt=runs/pose/train/weights/best.onnx \
+  --hw-arch hailo8 \
+  --calib-path my_dataset/train/images/ \
+  --classes 4 --performance
 
