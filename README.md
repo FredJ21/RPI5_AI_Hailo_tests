@@ -1,5 +1,6 @@
 ## Créer et Entraîner son propre IA pour le module AI HAILO du Raspberry PI 5 [Partie 1]
 
+
 Voici le début d'une série d'articles consacrée à la mise en œuvre d'une intelligence artificielle embarquée sur un Raspberry Pi 5.
 
 Le Raspberry Pi 5 est équipé d'une caméra ainsi que du module IA HAILO 8 et de son accélérateur de réseau neuronal intégré.
