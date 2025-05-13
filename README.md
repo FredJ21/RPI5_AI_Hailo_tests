@@ -21,23 +21,37 @@ Le premier article d'une série de 3, par Fred Robotic , vice-président de l'as
  
  https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-1
 
-<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-1"><img src="Doc/img/IA_FRED_titre_01-624x360.jpg" width="100%"></a>
+<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-1"><img src="Doc/img/IA_FRED_titre_01-624x360.jpg" width="50%"></a>
 
 ---
 
-Suite de la série d'articles consacrée à la mise en œuvre d'une intelligence artificielle embarquée sur un Raspberry Pi 5.
+Suite de la série d'articles consacrée à la mise en œuvre d'une intelligence artificielle embarquée sur un Raspberry Pi 5.<br>
 Dans cet épisode, on lance l’apprentissage du réseau de neurones avec les outils YOLOv8 et la compilation du modèle pour la puce d’accélération HAILO8. 
 
 Prérequis : une machine puissante équipée d’un puissant processeur graphique (GPU) 
 
 
- C'est à lire sur **Framboise 314 .fr** 
+C'est à lire sur **Framboise 314 .fr** 
 
 https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-2
 
-<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-1"><img src="Doc/img/IA_FRED_titre_02.jpg" width="100%"></a>
+<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-2"><img src="Doc/img/IA_FRED_titre_02-624x360.jpg" width="50%"></a>
 
 ---
+
+Suite de la série d'articles consacrée à la mise en œuvre d'une intelligence artificielle embarquée sur un Raspberry Pi 5.<br>
+Après les étapes de création de son DataSet, d'entraînement du modèle IA pour la reconnaissance de formes géométriques simples, et de compilation pour le module HAILO du Raspberry. <br>
+
+Voici la 3ème et dernière étape : le déploiement et les tests en situation réelle<br>
+
+C'est à lire sur **Framboise 314 .fr** 
+
+https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-3
+
+<a href="https://www.framboise314.fr/creer-et-entrainer-son-propre-ia-pour-le-module-ai-hailo-du-raspberry-pi-5-partie-3"><img src="Doc/img/IA_FRED_titre_03-624x360.jpg" width="50%"></a>
+
+---
+
 
 Un grand merci à toute l'équipe **Kubii.fr**, pour la fourniture du matériel qui a permis de réaliser toutes ces expériences, et en particulier pour le module d’Intelligence artificielle Hailo, indispensable dans ce développement.<br>
 [www.kubii.fr](https://www.kubii.fr), distributeur officiel des produits Raspberry Pi et Micro:Bit en France.

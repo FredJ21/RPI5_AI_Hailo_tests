@@ -1,0 +1,16 @@
+2025-03-01 08:16:51,109 - INFO - parser.py:162 - Translation started on ONNX model yolov8s_pose
+2025-03-01 08:16:51,166 - INFO - parser.py:197 - Restored ONNX model yolov8s_pose (completion time: 00:00:00.06)
+2025-03-01 08:16:51,383 - INFO - parser.py:220 - Extracted ONNXRuntime meta-data for Hailo model (completion time: 00:00:00.27)
+2025-03-01 08:16:51,864 - INFO - parser.py:377 - Start nodes mapped from original model: 'images': 'yolov8s_pose/input_layer1'.
+2025-03-01 08:16:51,864 - INFO - parser.py:378 - End nodes mapped from original model: '/model.22/cv2.2/cv2.2.2/Conv', '/model.22/cv3.2/cv3.2.2/Conv', '/model.22/cv4.2/cv4.2.2/Conv', '/model.22/cv2.1/cv2.1.2/Conv', '/model.22/cv3.1/cv3.1.2/Conv', '/model.22/cv4.1/cv4.1.2/Conv', '/model.22/cv2.0/cv2.0.2/Conv', '/model.22/cv3.0/cv3.0.2/Conv', '/model.22/cv4.0/cv4.0.2/Conv'.
+2025-03-01 08:16:51,937 - INFO - parser.py:292 - Translation completed on ONNX model yolov8s_pose (completion time: 00:00:00.83)
+2025-03-01 08:16:52,734 - INFO - client_runner.py:1864 - Saved HAR to: /local/shared_with_docker/2025-02-24/yolov8s_pose.har
+2025-03-01 08:16:53,388 - INFO - client_runner.py:486 - Loading model script commands to yolov8s_pose from /local/workspace/hailo_model_zoo/hailo_model_zoo/cfg/alls/generic/yolov8s_pose.alls
+2025-03-01 08:16:54,191 - IMPORTANT - sdk_backend.py:1089 - Starting Model Optimization
+2025-03-01 08:26:00,118 - IMPORTANT - sdk_backend.py:1130 - Model Optimization is done
+2025-03-01 08:26:00,970 - INFO - client_runner.py:1864 - Saved HAR to: /local/shared_with_docker/2025-02-24/yolov8s_pose.har
+2025-03-01 08:26:00,973 - INFO - client_runner.py:486 - Loading model script commands to yolov8s_pose from /local/workspace/hailo_model_zoo/hailo_model_zoo/cfg/alls/generic/yolov8s_pose.alls
+2025-03-01 08:26:01,033 - INFO - commands.py:4111 - ParsedPerformanceParam command, setting optimization_level(max=2)
+2025-03-01 08:26:01,033 - INFO - client_runner.py:489 - Appending model script commands to yolov8s_pose from string
+2025-03-01 08:26:01,043 - INFO - commands.py:4111 - ParsedPerformanceParam command, setting optimization_level(max=2)
+2025-03-01 10:03:08,904 - INFO - client_runner.py:1864 - Saved HAR to: /local/shared_with_docker/2025-02-24/yolov8s_pose.har
